@@ -26,8 +26,8 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
 
 /* ===================== Dashboard ===================== */
 .dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px 60px; max-width: 800px; margin: 20px auto 60px; position: relative; }
-.dashboard .card { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 30px; border-radius: 15px; min-height: 220px; width: 320px; font-weight: 500; font-size: 20px; color: rgba(0,0,0,0.5); box-shadow: 0 6px 15px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; position: relative; }
-.dashboard .card:hover { transform: translateY(-5px); color: rgba(0,0,0,1); }
+.dashboard .card { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 30px; border-radius: 15px; min-height: 220px; width: 320px; font-weight: 500; font-size: 20px; color: rgba(0,0,0,0.5); box-shadow: 0 6px 15px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; position: relative; text-decoration: none; }
+.dashboard .card:hover { transform: translateY(-5px); color: rgba(0,0,0,1); text-decoration: none; }
 .dashboard .card img { width: 50px; height: 50px; position: absolute; top: 15px; left: 15px; }
 .dashboard .card span { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; text-align: center; font-weight: bold; color: inherit; }
 
@@ -44,11 +44,11 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
     <div class="logo"><img src="logo.png" alt="Logo"></div>
     <nav>
         <ul>
-            <li><a href="#">CV Templates</a></li>
-            <li><a href="#">Job Matching</a></li>
-            <li><a href="#">Career Road Map</a></li>
-            <li><a href="#">Why ATS?</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="cv-templates.html">CV Templates</a></li>
+            <li><a href="cv-builder.html">Build CV</a></li>
+            <li><a href="cv-design-optimization.html">Optimization</a></li>
+            <li><a href="cv-finalize-download.html">Finalize</a></li>
             <li><a href="#" class="btn-login">Login</a></li>
         </ul>
     </nav>
@@ -57,10 +57,10 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
 <div class="banner">Dashboard</div>
 
 <div class="dashboard">
-    <div class="card cv"><img src="icons/build-cv.png" alt="Build CV Icon"><span>Build a New CV</span></div>
-    <div class="card previous"><img src="icons/previous-cv.png" alt="Previous CV Icon"><span>View Previous CV</span></div>
-    <div class="card jobs"><img src="icons/suggested-jobs.png" alt="Suggested Jobs Icon"><span>Suggested Jobs</span></div>
-    <div class="card courses"><img src="icons/course-recommendation.png" alt="Course Recommendation Icon"><span>Course Recommendations</span></div>
+    <a class="card cv" href="cv-builder.html"><img src="icons/build-cv.png" alt="Build CV Icon"><span>Build a New CV</span></a>
+    <a class="card previous" href="cv-finalize-download.html"><img src="icons/previous-cv.png" alt="Previous CV Icon"><span>View Previous CV</span></a>
+    <a class="card jobs" href="cv-finalize-download.html"><img src="icons/suggested-jobs.png" alt="Suggested Jobs Icon"><span>Suggested Jobs</span></a>
+    <a class="card courses" href="cv-design-optimization.html"><img src="icons/course-recommendation.png" alt="Course Recommendation Icon"><span>Course Recommendations</span></a>
 </div>
 
 <footer>
