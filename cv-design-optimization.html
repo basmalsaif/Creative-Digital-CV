@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Digital CV - Design & Optimization</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: #f5f5f5; zoom: 0.8; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+header .logo img { height: 40px; }
+header nav ul { display: flex; list-style: none; gap: 25px; }
+header nav ul li a { text-decoration: none; color: #111; font-weight: 500; transition: 0.2s; }
+header nav ul li a:hover { color: #9b59b6; }
+header nav ul li a.btn-login { background-color: #9b59b6; color: #fff; border-radius: 5px; padding: 6px 16px; }
+.banner { text-align: left; margin: 40px auto 20px 60px; font-size: 24px; font-weight: bold; color: #000; }
+.steps { display: flex; justify-content: space-between; max-width: 950px; margin: 20px auto 40px; background-color: #f0f0f0; padding: 15px 25px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; }
+.step { flex: 1; text-align: left; font-size: 14px; color: #555; position: relative; padding-left: 35px; }
+.step.active { font-weight: bold; color: #9b59b6; }
+.step span { display: inline-block; width: 20px; height: 20px; border-radius: 50%; color: #fff; text-align: center; line-height: 20px; font-size: 12px; font-weight: bold; position: absolute; left: 0; top: 0; }
+.step span.active-number { background-color: #9b59b6; }
+.step span.inactive-number { background-color: #ccc; }
+.step:not(:last-child)::after { content: ''; position: absolute; top: 10px; left: 30px; width: calc(100% - 30px); height: 2px; background-color: #ccc; z-index: -1; }
+.steps::before { content: ''; position: absolute; top: 19px; left: 15px; right: 15px; height: 2px; background-color: #ccc; z-index: -2; }
+.steps small { font-weight: bold; color: #000; }
+.cv-builder { max-width: 950px; margin: 0 auto; display: flex; gap: 50px; border-radius: 15px; padding: 40px; color: #fff;
+  background: linear-gradient(135deg, #ffd300, #ff2975, #8a3ffc);
+}
+.template-section, .optimize-section { flex: 1; }
+.template-preview { position: relative; background-color: #fff; border-radius: 12px; height: 200px; display: flex; justify-content: center; align-items: center; color: #000; }
+.template-section button { width: 100%; margin-top: 15px; padding: 12px; border-radius: 6px; font-weight: 500; cursor: pointer; }
+.template-section button.view { background-color: #fff; color: #000; border: none; }
+.template-section button.select { background-color: #0096ff; color: #fff; margin-top: 10px; border: none; }
+.optimize-section { background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px; color: #000; }
+.optimize-section input { width: 100%; padding: 10px; border-radius: 6px; border: none; margin-top: 10px; }
+.optimize-section p, .optimize-section ul { margin-top: 15px; }
+.optimize-section ul { list-style: disc; padding-left: 20px; }
+button.nav-back, button.nav-next { padding: 12px 24px; border-radius: 6px; font-weight: 500; margin-top: 30px; cursor: pointer; }
+button.nav-back { background-color: transparent; color: #9b59b6; border: 1px solid #9b59b6; }
+button.nav-next { background-color: #9b59b6; color: #fff; border: none; }
+footer { display: flex; justify-content: space-between; align-items: center; padding: 25px 80px; font-size: 14px; color: #666; margin-top: 40px; }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo"><img src="logo.png" alt="Logo"></div>
+    <nav>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">CV Templates</a></li>
+            <li><a href="#">Job Matching</a></li>
+            <li><a href="#">Recommendations</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#" class="btn-login">Login</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="steps">
+    <div class="step active"><span class="active-number">1</span> Core Profile<br><small>Full Name, Email, Phone, LinkedIn URL, Education: University, Major, Dates</small></div>
+    <div class="step active"><span class="active-number">2</span> Work & Skills<br><small>Experience, achievements, and core competencies that define your professional expertise.</small></div>
+    <div class="step active"><span class="active-number">3</span> Design & Optimization<br><small>Select your CV template and receive real-time ATS compliance and keyword feedback.</small></div>
+    <div class="step"><span class="inactive-number">4</span> Finalize & Download<br><small>Review your final CV, and download the ATS-optimized PDF.</small></div>
+</div>
+<div class="cv-builder">
+    <div class="template-section">
+        <h2>Choose a Template</h2>
+        <div class="template-preview">Template Preview</div>
+        <p>ATS Professional Template</p>
+        <button class="view">View</button>
+        <button class="select">Select This Template</button>
+    </div>
+    <div class="optimize-section">
+        <h2>Optimize Your CV</h2>
+        <label>Keyword Analysis</label>
+        <input type="text" placeholder="Ex Software Engineer">
+        <p>ATS Compatibility</p>
+        <ul>
+            <li>Use clear fonts</li>
+            <li>Avoid tables or complex graphics</li>
+        </ul>
+    </div>
+</div>
+<div style="max-width:950px; margin:0 auto; display:flex; justify-content: space-between;">
+    <button class="nav-back">Back</button>
+    <button class="nav-next">Next</button>
+</div>
+<footer>
+    <p style="text-align:left; margin:0;">Terms & Conditions</p>
+    <p style="text-align:right; margin:0;">© Copyright 2025, All Rights Reserved</p>
+</footer>
+</body>
+</html>

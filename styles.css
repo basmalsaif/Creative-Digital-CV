@@ -1,0 +1,266 @@
+/* ===================== Reset & Base ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #111;
+}
+
+/* ===================== Header ===================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+}
+header .logo img {
+    height: 40px;
+}
+header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+header nav ul li a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+    transition: 0.2s;
+}
+header nav ul li a:hover { color: #9b59b6; }
+header nav ul li a.btn-login {
+    background-color: #9b59b6;
+    color: #fff;
+    border-radius: 5px;
+    padding: 6px 16px;
+}
+
+/* ===================== Footer ===================== */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    color: #666;
+    margin-top: 40px;
+}
+
+/* ===================== Forms ===================== */
+form {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 500;
+}
+form input, form select, form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+form .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* ===================== Buttons ===================== */
+button, .btn {
+    background-color: #9b59b6;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: 0.2s;
+}
+button:hover, .btn:hover { opacity: 0.9; }
+button.back, .btn-back {
+    background-color: #fff;
+    color: #9b59b6;
+    border: 1px solid #9b59b6;
+}
+
+/* ===================== Progress Steps ===================== */
+.steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+    max-width: 900px;
+}
+.steps div {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    font-weight: 500;
+    font-size: 14px;
+}
+.steps div.active {
+    border-color: #9b59b6;
+    color: #9b59b6;
+}
+
+/* ===================== Dashboard ===================== */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 800px;
+    margin: 60px auto;
+    position: relative;
+}
+.dashboard .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+    border-radius: 10px;
+    min-height: 150px;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.dashboard .card:hover { transform: translateY(-5px); }
+
+/* Figma Dashboard Card Colors */
+.card.cv { background-color: #F2F0E3; }                     /* Build a New CV */
+.card.jobs { background-color: rgba(255, 195, 0, 0.25); }  /* Suggested Jobs */
+.card.previous { background-color: rgba(255, 62, 128, 0.25); } /* View Previous CV */
+.card.courses { background-color: rgba(135, 89, 242, 0.25); } /* Course Recommendations */
+
+/* User Icon Top Right */
+.user-icon {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+
+/* ===================== CV Builder ===================== */
+.cv-builder {
+    display: flex;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+.cv-builder .form-left { flex: 1; }
+.cv-builder .preview-right {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 400px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ===================== Template Selection ===================== */
+.template-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+}
+.template-card {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: #fff;
+    padding: 20px;
+}
+.template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* ===================== ATS Analysis ===================== */
+.ats-container {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.ats-container .score {
+    font-size: 48px;
+    font-weight: bold;
+    color: #9b59b6;
+    margin: 20px 0;
+}
+.ats-container .feedback { margin-top: 20px; text-align: left; }
+
+/* ===================== Job Matching ===================== */
+.job-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.job-container button {
+    background-color: #fff;
+    color: #9b59b6;
+    border: 1px solid #9b59b6;
+    margin-bottom: 20px;
+}
+
+/* ===================== Courses & Certifications ===================== */
+.course-container {
+    max-width: 700px;
+    margin: 40px auto;
+}
+.course-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #9b59b6;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.course-card button {
+    background-color: #9b59b6;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+/* ===================== Misc ===================== */
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
