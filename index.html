@@ -1,72 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative Digital CV - Dashboard</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-/* ===================== Reset & Base ===================== */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { background-color: #f5f5f5; color: #111; zoom: 0.8; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CVSenior — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#6b7280;
+      --brand:#7c3aed; /* primary */
+      --brand-2:#a78bfa; /* accent */
+      --shadow:0 10px 30px rgba(2,6,23,0.08);
+      --ring:0 0 0 3px rgba(124,58,237,.15);
 
-/* ===================== Header ===================== */
-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; }
-header .logo img { height: 40px; }
-header nav ul { display: flex; list-style: none; gap: 20px; }
-header nav ul li a { text-decoration: none; color: #111; font-weight: 500; transition: 0.2s; }
-header nav ul li a:hover { color: #9b59b6; }
-header nav ul li a.btn-login { background-color: #9b59b6; color: #fff; border-radius: 5px; padding: 6px 16px; }
+      /* Pastel tile colors */
+      --cream:#f7f4e6;
+      --rose:#fbe5ef;
+      --butter:#fff6cc;
+      --lav:#ece6ff;
+      --blue:#e6f0ff;
+      --mint:#e7fbef;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Cairo', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      display:flex;flex-direction:column;
+    }
 
-/* ===================== Banner ===================== */
-.banner { text-align: left; margin: 40px auto 20px 60px; font-size: 36px; font-weight: bold; color: #000; }
+    /* Header */
+    .header{
+      position:sticky;top:0;z-index:50;
+      background:#fff;
+      border-bottom:1px solid #eef2f7;
+      padding:12px 24px;
+      display:flex;align-items:center;gap:18px;justify-content:space-between;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:28px;height:28px}
+    .brand span{font-weight:700;letter-spacing:.3px}
 
-/* ===================== Footer ===================== */
-footer { display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; font-size: 14px; color: #666; margin-top: 60px; }
+    .nav{display:flex;align-items:center;gap:20px}
+    .nav a{color:#374151;text-decoration:none;font-weight:600;font-size:15px}
+    .nav a:hover{color:var(--brand)}
 
-/* ===================== Dashboard ===================== */
-.dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px 60px; max-width: 800px; margin: 20px auto 60px; position: relative; }
-.dashboard .card { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 30px; border-radius: 15px; min-height: 220px; width: 320px; font-weight: 500; font-size: 20px; color: rgba(0,0,0,0.5); box-shadow: 0 6px 15px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; position: relative; text-decoration: none; }
-.dashboard .card:hover { transform: translateY(-5px); color: rgba(0,0,0,1); text-decoration: none; }
-.dashboard .card img { width: 50px; height: 50px; position: absolute; top: 15px; left: 15px; }
-.dashboard .card span { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; text-align: center; font-weight: bold; color: inherit; }
+    .actions{display:flex;align-items:center;gap:10px}
+    .bell{position:relative;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;background:#f3f4f6;border:1px solid #e5e7eb;cursor:pointer}
+    .bell:hover{box-shadow:var(--ring)}
+    .bell .dot{position:absolute;top:6px;right:8px;background:#ef4444;color:#fff;font-size:11px;border-radius:999px;padding:1px 6px;line-height:18px}
+    .login{padding:9px 14px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font-weight:700;cursor:pointer}
+    .login:hover{box-shadow:var(--ring)}
 
-/* Figma Dashboard Card Colors */
-.card.cv { background-color: #F2F0E3; }
-.card.jobs { background-color: #FFF4C0; }
-.card.previous { background-color: #FFD9E6; }
-.card.courses { background-color: #E5DBFF; }
-</style>
+    /* Page */
+    .wrap{width:min(1200px, 92vw);margin:28px auto 36px}
+    .title-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    h1{margin:0;font-size:36px}
+    .progress{display:flex;align-items:center;gap:12px}
+    .progress small{color:var(--muted);font-weight:600}
+    .bar{position:relative;width:220px;height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+    .bar > span{position:absolute;inset:0 0 0 auto;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-2));}
+
+    /* Cards grid */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;margin-top:22px}
+    .card{
+      grid-column:span 6;
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:24px 22px 26px;
+      display:flex;align-items:flex-start;gap:16px;
+      text-decoration:none;color:inherit;
+      position:relative;isolation:isolate;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(2,6,23,0.12)}
+    .card .icon{width:40px;height:40px;opacity:.85;filter:grayscale(.1)}
+    .card h3{margin:0 0 6px;font-size:20px}
+    .card p{margin:0;color:#48556a}
+    .card .chev{position:absolute;right:18px;bottom:18px;font-size:18px;color:#6b7280}
+
+    /* Tile backgrounds */
+    .tile-cream{background:var(--cream)}
+    .tile-rose{background:var(--rose)}
+    .tile-butter{background:var(--butter)}
+    .tile-lav{background:var(--lav)}
+    .tile-blue{background:var(--blue)}
+    .tile-mint{background:var(--mint)}
+
+    @media (max-width: 840px){
+      .grid{grid-template-columns:1fr}
+      .card{grid-column:1/span 1}
+      .bar{width:160px}
+      h1{font-size:28px}
+    }
+
+    /* Footer */
+    footer{margin-top:auto;border-top:1px solid #eef2f7;background:#fff}
+    .foot{width:min(1200px,92vw);margin:auto;padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#64748b;font-size:14px}
+    .foot a{color:#64748b;text-decoration:none}
+    .foot a:hover{color:var(--brand)}
+  </style>
 </head>
 <body>
-
-<header>
-    <div class="logo"><img src="logo.png" alt="Logo"></div>
-    <nav>
-        <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="cv-templates.html">CV Templates</a></li>
-            <li><a href="cv-builder.html">Build CV</a></li>
-            <li><a href="cv-design-optimization.html">Optimization</a></li>
-            <li><a href="cv-finalize-download.html">Finalize</a></li>
-            <li><a href="#" class="btn-login">Login</a></li>
-        </ul>
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="CVSenior logo" />
+      <span>Creative Digital CV</span>
+    </div>
+    <nav class="nav" aria-label="Main">
+      <a href="#">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+      <a href="support.html">Support</a>
     </nav>
-</header>
+    <div class="actions">
+      <button class="bell" aria-label="Notifications">
+        <img src="icons/bell.svg" alt="" width="18" height="18" aria-hidden="true" />
+        <span class="dot" aria-label="2 new notifications">2</span>
+      </button>
+      <button class="login" onclick="location.href='login.html'">Login</button>
+    </div>
+  </header>
 
-<div class="banner">Dashboard</div>
+  <main class="wrap" role="main">
+    <div class="title-row">
+      <h1></h1>
+      <div class="progress" aria-label="Profile completion">
+        <small>Profile: <span id="pLabel">72%</span></small>
+        <div class="bar" aria-hidden="true"><span id="pBar"></span></div>
+      </div>
+    </div>
 
-<div class="dashboard">
-    <a class="card cv" href="cv-builder.html"><img src="icons/build-cv.png" alt="Build CV Icon"><span>Build a New CV</span></a>
-    <a class="card previous" href="cv-finalize-download.html"><img src="icons/previous-cv.png" alt="Previous CV Icon"><span>View Previous CV</span></a>
-    <a class="card jobs" href="cv-finalize-download.html"><img src="icons/suggested-jobs.png" alt="Suggested Jobs Icon"><span>Suggested Jobs</span></a>
-    <a class="card courses" href="cv-design-optimization.html"><img src="icons/course-recommendation.png" alt="Course Recommendation Icon"><span>Course Recommendations</span></a>
-</div>
+    <section class="grid" aria-label="Quick actions">
+      <!-- 1 Build a New CV -->
+      <a class="card tile-cream" href="build-cv.html">
+        <img class="icon" src="icons/build-cv.png" alt="" aria-hidden="true"/>
+        <div>
+          <h3>Build a New CV</h3>
+          <p>Create your ATS-friendly resume with guided steps.</p>
+        </div>
+        <span class="chev">›</span>
+      </a>
 
-<footer>
-    <p style="text-align:left; margin:0;">Terms & Conditions</p>
-    <p style="text-align:right; margin:0;">© Copyright 2025, All Rights Reserved</p>
-</footer>
+      <!-- 2 View Previous CVs -->
+      <a class="card tile-rose" href="previous-cv.html">
+        <img class="icon" src="icons/suggested-jobs.png" alt="" aria-hidden="true"/>
+        <div>
+          <h3>View Previous CVs</h3>
+          <p>Open, edit, or download your saved versions.</p>
+        </div>
+        <span class="chev">›</span>
+      </a>
+
+      <!-- 3 Suggested Jobs -->
+      <a class="card tile-butter" href="jobs.html">
+        <img class="icon" src="icons/previous-cv.png" alt="" aria-hidden="true"/>
+        <div>
+          <h3>Suggested Jobs</h3>
+          <p>Matches based on your skills & keywords.</p>
+        </div>
+        <span class="chev">›</span>
+      </a>
+
+      <!-- 4 Course Recommendations -->
+      <a class="card tile-lav" href="courses.html">
+        <img class="icon" src="icons/course-recommendation.png" alt="" aria-hidden="true"/>
+        <div>
+          <h3>Course Recommendations</h3>
+          <p>Targeted learning to strengthen your profile.</p>
+        </div>
+        <span class="chev">›</span>
+      </a>
+
+      <!-- 5 NEW: ATS Score Checker -->
+      <a class="card tile-blue" href="ats-check.html">
+        <img class="icon" src="icons/target.svg" alt="" aria-hidden="true"/>
+        <div>
+          <h3>Check CV for ATS Score</h3>
+          <p>Upload a CV to analyze keywords, structure, and formatting.</p>
+        </div>
+        <span class="chev">›</span>
+      </a>
+
+      <!-- 6 NEW: Cover Letter Builder -->
+      <a class="card tile-mint" href="cover-letter.html">
+        <img class="icon" src="icons/build-cv.png" alt="" aria-hidden="true"/>
+        <div>
+          <h3>Build a Cover Letter</h3>
+          <p>Generate a tailored letter from your CV and job title.</p>
+        </div>
+        <span class="chev">›</span>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <div>© Copyright 2025, Creative Digital CV — v1.0 Beta</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Demo: set progress value from JS (could be dynamic from profile completeness)
+    (function(){
+      var percent = 72; // Example — replace via real calculation later
+      var bar = document.getElementById('pBar');
+      var label = document.getElementById('pLabel');
+      label.textContent = percent + '%';
+      bar.style.width = percent + '%';
+    })();
+  </script>
+  <script src="js/app.js"></script>
 
 </body>
 </html>
