@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creative Digital CV | Contact</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-+4G+5c98tYg0B+R0KkS2XlP8+3wTbo5iV/mQJu1nvLKYj1WFJsbgx5caX5/C/PObbIVdQGdb9h9t7VDaRhfU9w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+      <div class="container py-3">
+        <a class="navbar-brand fw-bold" href="index.html"><span class="text-gradient">Creative Digital CV</span></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About Project</a></li>
+            <li class="nav-item"><a class="nav-link" href="system-design.html">System Design</a></li>
+            <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <section class="py-5 hero-section" style="min-height: 50vh;">
+      <div class="container py-5">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7" data-aos="fade-right">
+            <span class="accent-badge">
+              <i class="fa-solid fa-message"></i>
+              Contact & Feedback
+            </span>
+            <h1 class="display-5 fw-bold mt-3">Let’s build the future of digital resumes together.</h1>
+            <p class="lead text-muted mt-3">
+              Have suggestions, feature requests, or want to collaborate? Send us a note and we’ll get back within 2–3 business days.
+            </p>
+            <div class="d-flex gap-4 text-muted mt-4">
+              <div>
+                <i class="fa-solid fa-location-dot text-primary me-2"></i>
+                IT Innovation Lab, City University
+              </div>
+              <div>
+                <i class="fa-solid fa-envelope-open-text text-primary me-2"></i>
+                hello@creativedigitalcv.com
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5" data-aos="fade-left">
+            <div class="feature-card">
+              <h5 class="fw-bold mb-3">Office Hours</h5>
+              <ul class="list-unstyled text-muted d-grid gap-2 mb-0">
+                <li><i class="fa-solid fa-clock text-primary me-2"></i>Monday - Friday: 9:00 AM - 5:00 PM</li>
+                <li><i class="fa-solid fa-user-graduate text-primary me-2"></i>Capstone Studio: Wednesdays 2:00 PM - 4:00 PM</li>
+                <li><i class="fa-solid fa-calendar-check text-primary me-2"></i>Book consultations via email</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-5">
+      <div class="container py-4">
+        <div class="row g-5">
+          <div class="col-lg-6" data-aos="fade-up">
+            <h2 class="section-title">Send us a message</h2>
+            <p class="section-subtitle">
+              This form stores entries locally for demo purposes. Replace it with your preferred backend or form provider when deploying.
+            </p>
+            <form class="mt-4" id="contactForm">
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Alex Jordan" required />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com" required />
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Share your ideas or questions..." required></textarea>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="subscribe" />
+                <label class="form-check-label" for="subscribe">Keep me updated with release notes.</label>
+              </div>
+              <button type="submit" class="btn btn-accent">Submit Feedback</button>
+              <div class="alert alert-success mt-3 d-none" role="alert" id="formSuccess">
+                Thank you! Your message has been captured for the demo.
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="feature-card h-100">
+              <h5 class="fw-bold mb-3">Why collaborators love Creative Digital CV</h5>
+              <ul class="text-muted list-unstyled d-grid gap-3 mb-0">
+                <li><i class="fa-solid fa-swatchbook text-primary me-2"></i>Customizable to align with institutional branding guidelines.</li>
+                <li><i class="fa-solid fa-graduation-cap text-primary me-2"></i>Ideal for senior projects, career fairs, and alumni showcases.</li>
+                <li><i class="fa-solid fa-lock text-primary me-2"></i>Data privacy-first architecture ensures safe portfolio sharing.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-md-6">
+            <h5 class="fw-bold">Creative Digital CV</h5>
+            <p class="mb-0">IT Senior Project I &mdash; Designed by ChatGPT</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="about.html" class="me-3">About</a>
+            <a href="system-design.html" class="me-3">System Design</a>
+            <a href="features.html" class="me-3">Features</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      // Basic front-end form handler for the static demo
+      const form = document.getElementById('contactForm');
+      const successAlert = document.getElementById('formSuccess');
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        successAlert?.classList.remove('d-none');
+        form.reset();
+      });
+    </script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
