@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Step 1: Personal Information</title>
+
+  <!-- Branding / social -->
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:title" content="Creative Digital CV — Step 1: Personal Information">
+  <meta property="og:description" content="Enter your basic personal details to start your CV.">
+  <meta property="og:image" content="icons/preview.png">
+
+  <!-- Font + shared styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Page-specific styles -->
+  <style>
+    /* ===== Timeline (6-step bar, no connecting line) ===== */
+    .timeline{
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:16px 18px;
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .timeline::before{display:none;} /* removed gray line */
+
+    .tl-item{
+      position:relative; z-index:1;
+      display:grid; grid-template-columns:32px 1fr;
+      column-gap:12px; align-items:start;
+    }
+    .tl-dot{
+      width:32px; height:32px; border-radius:999px;
+      display:grid; place-items:center; font-weight:800; color:#fff;
+      background:#cbd5e1; /* gray by default */
+      box-shadow:0 6px 14px rgba(2,6,23,.08);
+    }
+    .tl-item.current .tl-dot{
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); /* purple active */
+      box-shadow:0 10px 22px rgba(124,58,237,.28);
+    }
+    .tl-copy b{display:block; margin:0 0 2px;}
+    .tl-copy small{display:block; color:var(--muted); line-height:1.25}
+    .timeline b,.timeline small,.tl-link{text-decoration:none!important}
+    @media(max-width:1100px){
+      .timeline{grid-template-columns:1fr 1fr}
+    }
+
+    /* ===== Form card & validation ===== */
+    .form-card{
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+    @media (max-width:860px){.two-col{grid-template-columns:1fr}}
+    label{font-weight:700;display:block;margin:10px 0 6px}
+    .req{color:#ef4444;font-weight:700}
+    .hint{color:var(--muted);font-size:13px}
+    .actions-top,.actions-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .actions-bottom{margin-top:16px}
+
+    .error{color:#ef4444;font-size:13px;margin-top:4px;display:none}
+    .ok{color:#16a34a;font-size:13px;margin-top:4px;display:none}
+    .input[aria-invalid="true"]{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+    .input.valid{border-color:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;
+      background:rgba(255,255,255,.12);color:#fff;font-weight:700;text-decoration:none;
+      border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+
+    <!-- ===== Timeline: Step 1 active (purple), rest gray ===== -->
+    <section class="timeline" style="margin-top:14px;" aria-label="CV builder steps">
+      <div class="tl-item current" aria-current="step">
+        <div class="tl-dot">1</div>
+        <div class="tl-copy"><b>Personal Info</b><small>Contact & profile.</small></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-copy"><b>Summary</b><small>2–4 lines.</small></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-copy"><b>Experience</b><small>Roles & impact.</small></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-copy"><b>Certificates</b><small>Issuer & expiry.</small></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-copy"><b>Skills & Lang</b><small>Tech, soft, languages.</small></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">6</div>
+        <div class="tl-copy"><b>Design</b><small>Choose template & theme.</small></div>
+      </div>
+    </section>
+
+    <!-- ===== Form ===== -->
+    <section class="form-card" style="margin-top:22px;" aria-label="Personal information form">
+      <div class="actions-top" style="margin-bottom:6px">
+        <h1 id="page-title" style="margin:0;">Step 1 — Personal Information</h1>
+      </div>
+      <p class="hint" style="margin:0 0 14px;">Fields marked with <span class="req">*</span> are required.</p>
+
+      <form id="personalForm" novalidate>
+        <div class="two-col" role="group" aria-labelledby="page-title">
+          <!-- Left -->
+          <div>
+            <label for="fullName">Full Name <span class="req">*</span></label>
+            <input id="fullName" class="input" type="text" placeholder="Enter your full name" autocomplete="name" required aria-describedby="hint_fullName err_fullName ok_fullName">
+            <small id="hint_fullName" class="hint">Use the name you want to appear on your CV.</small>
+            <div class="error" id="err_fullName" role="status" aria-live="polite">Full name is required.</div>
+            <div class="ok" id="ok_fullName" role="status" aria-live="polite">Looks good.</div>
+
+            <label for="email" style="margin-top:10px">Email Address <span class="req">*</span></label>
+            <input id="email" class="input" type="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="hint_email err_email ok_email">
+            <small id="hint_email" class="hint">Use a professional email address.</small>
+            <div class="error" id="err_email" role="status" aria-live="polite">Please enter a valid email address.</div>
+            <div class="ok" id="ok_email" role="status" aria-live="polite">Email looks valid.</div>
+
+            <label for="degree" style="margin-top:10px">Degree (optional)</label>
+            <input id="degree" class="input" type="text" placeholder="e.g., Bachelor of Information Technology" autocomplete="organization-title">
+
+            <label for="major" style="margin-top:10px">Major (optional)</label>
+            <input id="major" class="input" type="text" placeholder="e.g., Cybersecurity, Computer Science">
+          </div>
+
+          <!-- Right -->
+          <div>
+            <label for="phone">Phone Number</label>
+            <input id="phone" class="input" type="tel" placeholder="+966 5X XXXX XXX" autocomplete="tel" aria-describedby="hint_phone">
+            <small id="hint_phone" class="hint">KSA format auto-formats as you type: <em>+966 5X XXXX XXX</em>.</small>
+
+            <label for="location" style="margin-top:10px">Location</label>
+            <input id="location" class="input" type="text" placeholder="City, Country" autocomplete="address-level2">
+
+            <label for="linkedin" style="margin-top:10px">LinkedIn Profile URL</label>
+            <input id="linkedin" class="input" type="url" placeholder="https://www.linkedin.com/in/username" aria-describedby="hint_linkedin ok_linkedin">
+            <small id="hint_linkedin" class="hint">Paste your profile URL; we’ll clean it automatically.</small>
+            <div class="ok" id="ok_linkedin" role="status" aria-live="polite" style="display:none">LinkedIn URL cleaned.</div>
+          </div>
+        </div>
+
+        <div class="actions-bottom">
+          <a class="btn-secondary" href="index.html"></a>
+          <button class="btn-primary" type="submit" id="nextBtn" style="width:220px;">Save & Continue</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared JS -->
+  <script src="js/app.js"></script>
+
+  <!-- Page Logic -->
+  <script>
+    (function(){
+      const storeKey='cvsenior-step1-personal';
+      const builderKey='cvsenior-builder';
+      const fields=['fullName','email','degree','major','phone','location','linkedin'];
+      const $=(s)=>document.querySelector(s);
+      const el=(id)=>document.getElementById(id);
+
+      // Prefill (unchanged)
+      (function prefill(){
+        let s={},b={};
+        try{s=JSON.parse(localStorage.getItem(storeKey)||'{}')||{}}catch{}
+        try{b=JSON.parse(localStorage.getItem(builderKey)||'{}')||{}}catch{}
+        const bp=(b.sections&&b.sections.personal)?b.sections.personal:(b.personal||{});
+        fields.forEach(id=>{
+          const i=el(id),v=s[id]??bp[id]??'';
+          if(i&&v)i.value=v;
+        });
+      })();
+
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      function setValid(i,ok){i.classList.add('valid');const o=el(ok);if(o)o.style.display='block';}
+      function clearValid(i,ok){i.classList.remove('valid');const o=el(ok);if(o)o.style.display='none';}
+      function showError(id,on){const i=el(id),e=el('err_'+id);if(!i||!e)return;if(on){i.setAttribute('aria-invalid','true');e.style.display='block';i.classList.remove('valid');}else{i.removeAttribute('aria-invalid');e.style.display='none';}}
+
+      // Live validation (unchanged)
+      el('fullName').addEventListener('input',()=>{
+        const v=el('fullName').value.trim();
+        if(v){showError('fullName',false);setValid(el('fullName'),'ok_fullName');}
+        else{clearValid(el('fullName'),'ok_fullName');}
+      });
+      el('email').addEventListener('input',()=>{
+        const v=el('email').value.trim();
+        if(emailRe.test(v)){showError('email',false);setValid(el('email'),'ok_email');}
+        else{clearValid(el('email'),'ok_email');}
+      });
+
+      // KSA phone auto-format (unchanged)
+      el('phone').addEventListener('input',()=>{
+        const r=el('phone').value.replace(/\D+/g,'');let o=el('phone').value;
+        if(r.startsWith('9665')||r.startsWith('5')){
+          let d=r.startsWith('5')?'966'+r:r;
+          d=d.slice(0,12);
+          const cc=d.slice(0,3),p1=d.slice(3,4),p2=d.slice(4,5),p3=d.slice(5,8),p4=d.slice(8,12);
+          o='+'+cc+' '+p1+p2+(p3?(' '+p3):'')+(p4?(' '+p4):'');
+          el('phone').value=o.trim();
+        }
+      });
+
+      // LinkedIn cleaner (unchanged)
+      el('linkedin').addEventListener('blur',()=>{
+        const v=el('linkedin').value.trim();
+        if(!v)return;
+        try{
+          let u=v;
+          if(!/^https?:\/\//i.test(u))u='https://'+u;
+          const url=new URL(u);
+          if(url.hostname.includes('linkedin.com')){
+            const m=url.pathname.replace(/\/+$/,'').match(/\/in\/([^\/]+)/i);
+            if(m){
+              el('linkedin').value='https://www.linkedin.com/in/'+m[1].toLowerCase();
+              const ok=$('#ok_linkedin');
+              ok.style.display='block';
+              setTimeout(()=>ok.style.display='none',2000);
+            }
+          }
+        }catch{}
+      });
+
+      // ===== Improved submit handler (only change) =====
+      $('#personalForm').addEventListener('submit',(e)=>{
+        e.preventDefault();
+
+        const n=(el('fullName')?.value||'').trim();
+        const m=(el('email')?.value||'').trim();
+
+        let bad=false;
+        if(!n){showError('fullName',true);bad=true;} else {showError('fullName',false);}
+        if(!m||!emailRe.test(m)){showError('email',true);bad=true;} else {showError('email',false);}
+        if(bad){ console.warn('[Step1] Validation failed'); return; }
+
+        // Collect payload
+        const p={}; fields.forEach(id=>p[id]=(el(id)?.value||'').trim());
+
+        // Debug visibility
+        console.log('[Step1] Submitting...');
+        console.log('[Step1] Payload:', p);
+
+        // Persist step-scoped data
+        localStorage.setItem(storeKey,JSON.stringify(p));
+
+        // Merge into builder state safely
+        try{
+          const stRaw = localStorage.getItem(builderKey);
+          const st = (stRaw ? JSON.parse(stRaw) : {}) || {};
+          st.sections ??= {};
+          const prev = st.sections.personal || {};
+          st.sections.personal = {
+            fullName : p.fullName || prev.fullName || '',
+            email    : p.email    || prev.email    || '',
+            phone    : p.phone    || prev.phone    || '',
+            location : p.location || prev.location || '',
+            linkedin : p.linkedin || prev.linkedin || '',
+            degree   : p.degree   || prev.degree   || '',
+            major    : p.major    || prev.major    || ''
+          };
+          localStorage.setItem(builderKey, JSON.stringify(st));
+          console.log('[Step1] Builder state saved:', st);
+        }catch(err){
+          console.error('[Step1] Failed to update builder state', err);
+        }
+
+        // Navigate to Step 2
+        window.location.href='step2-summary.html';
+      });
+    })();
+  </script>
+</body>
+</html>

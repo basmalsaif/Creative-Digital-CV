@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Step 2: Professional Summary</title>
+
+  <!-- Branding / social -->
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:title" content="Creative Digital CV — Step 2: Professional Summary">
+  <meta property="og:description" content="Write a concise professional summary for your CV.">
+  <meta property="og:image" content="icons/preview.png">
+
+  <!-- Font + shared styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Page-specific styles -->
+  <style>
+    /* ======================================================================
+       TIMELINE (HORIZONTAL) — visual step indicator used across CV builder
+       - Card container styled with CSS variables (set in :root or app.css)
+       - Uses CSS Grid to lay out N equal columns (steps)
+       - Each step is .tl-item with a circular .tl-dot and text .tl-copy
+       ====================================================================== */
+    .timeline {
+      background: var(--card);              /* surface color from theme */
+      border-radius: 18px;                  /* soft rounded container */
+      box-shadow: var(--shadow);            /* elevation from theme */
+      padding: 16px 18px;                   /* inner spacing */
+      display: grid;                        /* grid layout for steps */
+      grid-template-columns: repeat(4, 1fr);/* 4 equal columns by default */
+      gap: 22px;                            /* space between steps */
+      position: relative;                   /* to position ::before rail */
+      overflow: hidden;                     /* hide any overflow visuals */
+    }
+
+		/* ----------------------------------------------------------------------
+		   Remove underline from any bold text, small text, and timeline links
+		   (Some browsers may apply underlines via inherited <a> styles.)
+		   ---------------------------------------------------------------------- */
+	.timeline b,
+	.timeline small,
+	.tl-link {
+	  text-decoration: none !important;
+	}
+
+	/* Keep links looking like plain items on hover/focus (no underline). */
+	.tl-link:hover,
+	.tl-link:focus {
+	  text-decoration: none !important;
+	}
+
+    /* ----------------------------------------------------------------------
+       RAIL (decorative line behind dots). Disabled here by default.
+       If you want a visible rail, keep this block and set a background.
+       ---------------------------------------------------------------------- */
+    .timeline::before{
+      content:"";                           /* draw a line between steps */
+      position:absolute;
+      left:50px; right:50px;                /* inset from edges so it stops under dots */
+      top:44px; height:4px;                 /* thickness & position */
+      border-radius: 999px;                 /* pill shape */
+      z-index:0;                            /* sits behind the dots/items */
+    }
+
+    /* ----------------------------------------------------------------------
+       Each step item: grid of [dot | text], aligned at the start
+       ---------------------------------------------------------------------- */
+    .tl-item{
+      position:relative;                    /* to allow its own ::after rail segment */
+      z-index:1;                            /* above the rail */
+      display:grid;
+      grid-template-columns: 32px 1fr;      /* 32px dot + flexible label area */
+      column-gap:12px;
+      align-items:start;                    /* text aligned to top edge */
+    }
+
+    /* ----------------------------------------------------------------------
+       The dot (step number): circular, bold number, shadowed
+       - Default background is gray (upcoming step)
+       ---------------------------------------------------------------------- */
+    .tl-dot{
+      width:32px; height:32px; border-radius:999px; /* perfect circle */
+      display:grid; place-items:center;             /* center step number */
+      font-weight:800;                              /* visible number */
+      color:#fff;                                   /* white number */
+      background: #cbd5e1;                          /* default gray for upcoming */
+      box-shadow: 0 6px 14px rgba(2,6,23,.08);      /* soft lift */
+      position:relative;
+    }
+
+    /* ----------------------------------------------------------------------
+       Completed steps: purple gradient & stronger shadow
+       ---------------------------------------------------------------------- */
+    .tl-item.done .tl-dot{
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 22px rgba(124,58,237,.28);
+    }
+
+    /* ----------------------------------------------------------------------
+       Current (active) step: same gradient + a tiny scale pop
+       ---------------------------------------------------------------------- */
+    .tl-item.current .tl-dot{
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      transform: scale(1.02);
+    }
+
+    /* Copy (title + subtext) inside each step. */
+    .tl-copy b{display:block; margin:0 0 2px;}
+    .tl-copy small{display:block; color:var(--muted); line-height:1.25}
+
+    /* ----------------------------------------------------------------------
+       OPTIONAL: Active rail segments (between done/current steps)
+       Kept commented-out to avoid drawing a purple connector line.
+       To enable: remove the outer comment marks.
+       ----------------------------------------------------------------------
+    .tl-item.done::after,
+    .tl-item.current::after{
+      content:"";
+      position:absolute;
+      left:50px; right:-50px; top:46px; height:4px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      z-index:0; opacity:.8;
+    }
+    /* Prevent coloring beyond the current step */
+    .tl-item.current::after{ right: calc(100% - 50px); } */
+
+    /* ----------------------------------------------------------------------
+       Accessibility: make step items focusable and remove link underlines
+       ---------------------------------------------------------------------- */
+    .tl-link{ color:inherit; text-decoration:none; }
+    .tl-link:focus-visible{ box-shadow: var(--ring); border-radius:12px; }
+
+    /* ======================================================================
+       SUMMARY CARD (container used under the timeline on Step 2)
+       ====================================================================== */
+    .form-card{
+      background:var(--card);               /* same surface as timeline */
+      border-radius:18px;                   /* consistent rounding */
+      box-shadow:var(--shadow);             /* elevation */
+      padding:22px;                         /* inner spacing */
+    }
+
+    /* Labels for inputs/textarea. */
+    label{font-weight:700;display:block;margin:10px 0 6px}
+
+    /* Summary textarea: roomy, resizable vertically. */
+    textarea{
+      width:100%;min-height:180px;border:1px solid #e5e7eb;border-radius:12px;
+      padding:12px;font:inherit;resize:vertical;
+    }
+
+    /* Utility row: flex layout used for hints and char counter. */
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+    /* Subtle hint text. */
+    .hint{color:var(--muted);font-size:13px}
+
+    /* Character counter aligned to the far edge. */
+    .count{margin-left:auto;font-weight:700}
+
+    /* Action row: primary/secondary buttons aligned left/right. */
+    .actions{display:flex;justify-content:space-between;margin-top:16px;gap:10px}
+
+    /* Generic secondary button (unstyled link-look). */
+    .btn-secondary{padding:10px 14px;border:1px solid #e5e7eb;background:#fff;border-radius:12px;font-weight:700;cursor:pointer}
+	
+	/* ----------------------------------------------------------------------
+	   Secondary button override for Step 2: purple text color + inline-block.
+	   This duplicates the selector to increase clarity & keep specificity low.
+	   ---------------------------------------------------------------------- */
+	.btn-secondary {
+	  padding:10px 14px;
+	  border:1px solid #e5e7eb;
+	  background:#fff;
+	  border-radius:12px;
+	  font-weight:700;
+	  cursor:pointer;
+	  color:var(--brand);                  /* brand-colored text for emphasis */
+	  display:inline-block;
+	}
+
+	/* Ensure "Back to Step 1" anchor looks like a button and never underlined. */
+	a.btn-secondary {
+	  text-decoration: none !important;
+	  color: var(--brand) !important;
+	}
+	a.btn-secondary:hover {
+	  text-decoration: none !important;
+	}
+
+    /* ----------------------------------------------------------------------
+       Transparent "Back to site" chip button placed in the header area
+       ---------------------------------------------------------------------- */
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+
+    /* Validation error message for summary textarea (hidden by default). */
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+
+    /* When invalid, add a red border + subtle red focus ring. */
+    textarea[aria-invalid="true"]{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+
+    /* ======================================================================
+       RESPONSIVE BEHAVIOR — collapse the timeline to a single column on narrow
+       screens and hide the decorative rails.
+       ====================================================================== */
+    @media(max-width:960px){
+      .timeline{ grid-template-columns: 1fr; } /* stack steps vertically */
+      .timeline::before{ display:none; }       /* no horizontal rail */
+      .tl-item::after{ display:none; }         /* no active segment */
+    }
+
+	/* ======================================================================
+	   STEP 2 OVERRIDES — make the timeline match Step 1’s 6-step layout.
+	   These are add-only overrides (kept at the end) to avoid changing upstream.
+	   ====================================================================== */
+.timeline{ grid-template-columns: repeat(6,1fr) !important; } /* 6 equal steps */
+.timeline::before{ display:none !important; }           /* hide the gray rail */
+.tl-item{ grid-template-columns:32px 1fr !important; }  /* keep dot + label grid */
+.tl-dot{
+  width:32px;height:32px;border-radius:999px;
+  display:grid;place-items:center;font-weight:800;color:#fff;
+  background:#cbd5e1;box-shadow:0 6px 14px rgba(2,6,23,.08);
+}
+.tl-item.current .tl-dot{
+  background:linear-gradient(135deg,var(--brand),var(--brand-2)) !important;
+  box-shadow:0 10px 22px rgba(124,58,237,.28);
+}
+.tl-copy b{display:block;margin:0 0 2px;}
+.tl-copy small{display:block;color:var(--muted);line-height:1.25}
+.timeline b,.timeline small,.tl-link{text-decoration:none!important}
+
+/* Responsive parity with Step 1: at <=1100px show 2 columns per row. */
+@media (max-width:1100px){ .timeline{ grid-template-columns:1fr 1fr !important; } }
+  </style>
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+
+    <!-- ====== Timeline: Step 1 (done), Step 2 (current), 3–4 (upcoming) ====== -->
+    <section class="timeline" style="margin-top:14px;" aria-label="CV builder steps">
+      <!-- Step 1 -->
+      <a class="tl-link tl-item done" href="step1-personal.html">
+        <div class="tl-dot" aria-hidden="true">1</div>
+        <div class="tl-copy">
+          <b>Personal Information</b>
+          <small>Full name, email, phone, location, LinkedIn.</small>
+        </div>
+      </a>
+
+      <!-- Step 2 -->
+      <div class="tl-item current" aria-current="step">
+        <div class="tl-dot" aria-hidden="true">2</div>
+        <div class="tl-copy">
+          <b>Professional Summary</b>
+          <small>2–4 lines highlighting strengths and goals.</small>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="tl-item upcoming">
+        <div class="tl-dot" aria-hidden="true">3</div>
+        <div class="tl-copy">
+          <b>Design & Optimization</b>
+          <small>Select template & get ATS feedback.</small>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="tl-item upcoming">
+        <div class="tl-dot" aria-hidden="true">4</div>
+        <div class="tl-copy">
+          <b>Finalize & Download</b>
+          <small>Review & download the ATS-optimized PDF.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Summary Form ====== -->
+    <section class="form-card" style="margin-top:22px;" aria-label="Summary form">
+      <h1 id="page-title" style="margin:0 0 6px;">Step 2 — CV Summary</h1>
+      <p class="hint" style="margin:0 0 12px;">
+        Tip: start with your role + years, add 2–3 signature skills/achievements, end with your goal.
+      </p>
+
+      <form id="summaryForm" novalidate>
+        <label for="summary">Professional Summary</label>
+        <div class="row" style="margin-bottom:6px">
+          <div class="hint">Recommended length: 220–450 characters.</div>
+          <div class="count" id="count">0</div>
+        </div>
+        <textarea id="summary" placeholder="Example: Cybersecurity student with hands-on labs in Linux, networking, and SOC workflows. Completed CCNA & Linux courses and built projects in Splunk log analysis and AD basics. Seeking an internship to apply blue-team fundamentals and grow into a security analyst role."></textarea>
+        <div class="error" id="err_summary">Please write a short summary (at least 120 characters).</div>
+
+        <div class="actions">
+          <a class="btn-secondary" href="step1-personal.html">← Back to Step 1</a>
+          <button class="btn-primary" type="submit" style="width:220px">Save & Continue</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared JS -->
+  <script src="js/app.js"></script>
+
+  <!-- Page logic -->
+  <script>
+    (function(){
+      const storeKey = 'cvsenior-step2-summary';
+      const builderKey = 'cvsenior-builder';
+      const ta = document.getElementById('summary');
+      const cnt = document.getElementById('count');
+      const err = document.getElementById('err_summary');
+
+      // Prefill
+      try{
+        const saved = JSON.parse(localStorage.getItem(storeKey) || '{}');
+        if(saved.summary){ ta.value = saved.summary; }
+        else{
+          const st = JSON.parse(localStorage.getItem(builderKey) || '{}');
+          if(st.sections && st.sections.profile){ ta.value = st.sections.profile; }
+        }
+      }catch{}
+
+      function updateCount(){ cnt.textContent = ta.value.trim().length + ' chars'; }
+      updateCount();
+      ta.addEventListener('input', ()=>{
+        updateCount();
+        if(ta.value.trim().length >= 120){ ta.removeAttribute('aria-invalid'); err.style.display='none'; }
+      });
+
+      document.getElementById('summaryForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const val = ta.value.trim();
+
+        if(val.length < 120){
+          ta.setAttribute('aria-invalid','true');
+          err.style.display = 'block';
+          return;
+        }
+
+        // Persist
+        localStorage.setItem(storeKey, JSON.stringify({ summary: val }));
+
+        // Sync to builder
+        try{
+          const state = JSON.parse(localStorage.getItem(builderKey) || '{}');
+          state.personal ??= { name:'', title:'', email:'', phone:'', location:'' };
+          state.sections ??= { profile:'', exp:[], skills:[], lang:[], cert:[], proj:[], education:[] };
+          state.sections.profile = val;
+          localStorage.setItem(builderKey, JSON.stringify(state));
+        }catch{}
+
+        // Continue (to build-cv or your Step 3 page later)
+        window.location.href = 'step3-experience.html';
+      });
+    })();
+  </script>
+  <script>
+/* === Step 2 timeline → inject Step 1 structure (add-only) === */
+(function(){
+  const tl = document.querySelector('section.timeline');
+  if(!tl || tl.dataset.upgraded) return;
+  tl.dataset.upgraded = 'true';
+
+  const steps = [
+    {n:1, label:'Personal Info', sub:'Contact & profile.', href:'step1-personal.html', done:true},
+    {n:2, label:'Summary',      sub:'2–4 lines.',          current:true},
+    {n:3, label:'Experience',   sub:'Roles & impact.'},
+    {n:4, label:'Certificates', sub:'Issuer & expiry.'},
+    {n:5, label:'Skills & Lang',sub:'Tech, soft, languages.'},
+    {n:6, label:'Design',       sub:'Choose template & theme.'},
+  ];
+
+  tl.innerHTML = steps.map(s=>{
+    const cls = `tl-item${s.done?' done':''}${s.current?' current':''}`;
+    if(s.href){
+      return `<a class="tl-link ${cls}" href="${s.href}">
+                <div class="tl-dot" aria-hidden="true">${s.n}</div>
+                <div class="tl-copy"><b>${s.label}</b><small>${s.sub}</small></div>
+              </a>`;
+    }
+    return `<div class="${cls}" ${s.current?'aria-current="step"':''}>
+              <div class="tl-dot" aria-hidden="true">${s.n}</div>
+              <div class="tl-copy"><b>${s.label}</b><small>${s.sub}</small></div>
+            </div>`;
+  }).join('');
+})();
+</script>
+
+</body>
+</html>

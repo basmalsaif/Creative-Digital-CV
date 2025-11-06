@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Step 5: Skills & Languages</title>
+
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <style>
+    /* ===== Timeline (5 steps, no connecting line) ===== */
+    .timeline{
+      background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+      padding:16px 18px;display:grid;grid-template-columns:repeat(5,1fr);
+      gap:22px;position:relative;overflow:hidden;
+    }
+    .timeline::before{display:none;}
+    .tl-item{position:relative;z-index:1;display:grid;grid-template-columns:32px 1fr;column-gap:12px;align-items:start}
+    .tl-dot{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-weight:800;color:#fff;background:#cbd5e1;box-shadow:0 6px 14px rgba(2,6,23,.08)}
+    .tl-item.done .tl-dot,.tl-item.current .tl-dot{background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 10px 22px rgba(124,58,237,.28)}
+    .tl-copy b{display:block;margin:0 0 2px}
+    .tl-copy small{display:block;color:var(--muted);line-height:1.25}
+    .tl-link{text-decoration:none;color:inherit}
+    .tl-link:hover{text-decoration:none}
+    .timeline b,.timeline small,.tl-link{text-decoration:none!important}
+
+    /* ===== Layout ===== */
+    .form-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px}
+    .grid-responsive{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media(min-width:1200px){.grid-responsive{grid-template-columns:1fr 1fr 1fr}}
+    @media(max-width:900px){.grid-responsive{grid-template-columns:1fr}}
+    label{font-weight:700;display:block;margin:10px 0 6px}
+    input,select{width:100%;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px;font:inherit}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .hint{color:var(--muted);font-size:13px}
+    .btn-secondary{padding:10px 14px;border:1px solid #e5e7eb;background:#fff;border-radius:12px;font-weight:700;color:var(--brand);cursor:pointer;display:inline-block;text-decoration:none}
+    .btn-secondary:hover{text-decoration:none}
+    .btn-line{padding:10px 14px;border:1px dashed #cbd5e1;background:#fff;border-radius:12px;font-weight:700;cursor:pointer}
+    .actions{display:flex;justify-content:space-between;margin-top:18px;gap:10px;flex-wrap:wrap}
+
+    /* Buckets / chips */
+    .bucket{border:1px solid #eef2f7;background:#fafbff;border-radius:14px;padding:14px}
+    .bucket h3{margin:0 0 8px;font-size:16px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:6px 10px;border-radius:999px;background:#eef2ff;border:1px solid #dbe4ff}
+    .chip button{border:none;background:transparent;cursor:pointer;font-weight:800;line-height:1}
+
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+	
+	/* ===== Timeline (match Step 3) ===== */
+.timeline{
+  background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+  padding:16px 18px;display:grid;grid-template-columns:repeat(6,1fr);
+  gap:22px;position:relative;overflow:hidden;
+}
+.timeline::before{display:none;}
+.tl-item{
+  position:relative;z-index:1;display:grid;
+  grid-template-columns:32px 1fr;column-gap:12px;align-items:start;
+}
+.tl-dot{
+  width:32px;height:32px;border-radius:999px;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:#cbd5e1;box-shadow:0 6px 14px rgba(2,6,23,.08)
+}
+.tl-item.done .tl-dot,.tl-item.current .tl-dot{
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 10px 22px rgba(124,58,237,.28)
+}
+.tl-copy b{display:block;margin:0 0 2px}
+.tl-copy small{display:block;color:var(--muted);line-height:1.25}
+.tl-link{text-decoration:none;color:inherit}
+.tl-link:hover{text-decoration:none}
+.timeline b,.timeline small,.tl-link{text-decoration:none!important}
+
+/* responsive like Step 1/2/3 */
+@media (max-width:1100px){ .timeline{ grid-template-columns:1fr 1fr } }
+
+
+    /* ----------------------------------------------------------------------
+       Transparent "Back to site" chip button placed in the header area
+       ---------------------------------------------------------------------- */
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+
+    /* Validation error message for summary textarea (hidden by default). */
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+
+    /* When invalid, add a red border + subtle red focus ring. */
+    textarea[aria-invalid="true"]{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+    <!-- Timeline: steps 1–5 -->
+  <section class="timeline" style="margin-top:14px;" aria-label="CV builder steps">
+  <a class="tl-link tl-item done" href="step1-personal.html">
+    <div class="tl-dot">1</div>
+    <div class="tl-copy"><b>Personal Information</b><small>Full name, email, phone, location, LinkedIn.</small></div>
+  </a>
+  <a class="tl-link tl-item done" href="step2-summary.html">
+    <div class="tl-dot">2</div>
+    <div class="tl-copy"><b>Professional Summary</b><small>2–4 lines highlighting strengths and goals.</small></div>
+  </a>
+  <a class="tl-link tl-item done" href="step3-experience.html">
+    <div class="tl-dot">3</div>
+    <div class="tl-copy"><b>Work & Experience</b><small>Roles, internships, achievements.</small></div>
+  </a>
+  <a class="tl-link tl-item done" href="step4-certificates.html">
+    <div class="tl-dot">4</div>
+    <div class="tl-copy"><b>Professional Certificates</b><small>Issuer, year, and expiry date.</small></div>
+  </a>
+  <div class="tl-item current" aria-current="step">
+    <div class="tl-dot">5</div>
+    <div class="tl-copy"><b>Skills & Languages</b><small>Tech stack, soft skills, and language levels.</small></div>
+  </div>
+  <a class="tl-link tl-item" href="step6-design.html">
+    <div class="tl-dot">6</div>
+    <div class="tl-copy"><b>Design</b><small>Choose template & theme.</small></div>
+  </a>
+</section>
+
+
+    <!-- Skills + Languages -->
+    <section class="form-card" style="margin-top:22px;" aria-label="Skills & languages form">
+      <h1 id="page-title" style="margin:0 0 8px;">Step 5 — Skills & Languages</h1>
+      <p class="hint">Add individual items or paste a list for skills. Languages include a proficiency level.</p>
+
+      <div class="grid-responsive">
+        <!-- Technical skills -->
+        <div>
+          <label for="techInput">Add Technical Skill</label>
+          <div class="row">
+            <input id="techInput" type="text" placeholder="e.g., Splunk, Linux, React, Python">
+            <select id="techLevel" aria-label="Proficiency (optional)">
+              <option value="">Level (optional)</option>
+              <option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Expert</option>
+            </select>
+            <button class="btn-line" type="button" id="addTech">＋ Add</button>
+          </div>
+          <div class="hint">Tip: paste a list like: <em>Linux, CCNA, HTML, JavaScript</em></div>
+          <div class="error" id="err_tech">Please enter at least one technical skill.</div>
+
+          <div class="bucket" style="margin-top:14px">
+            <h3>Technical Skills</h3>
+            <div id="techChips" class="chips" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- Soft skills -->
+        <div>
+          <label for="softInput">Add Soft Skill</label>
+          <div class="row">
+            <input id="softInput" type="text" placeholder="e.g., Communication, Teamwork, Problem Solving">
+            <select id="softLevel" aria-label="Proficiency (optional)">
+              <option value="">Level (optional)</option>
+              <option>Basic</option><option>Good</option><option>Strong</option><option>Excellent</option>
+            </select>
+            <button class="btn-line" type="button" id="addSoft">＋ Add</button>
+          </div>
+          <div class="hint">Tip: paste a list: <em>Teamwork, Leadership, Time Management</em></div>
+          <div class="error" id="err_soft">Please enter at least one soft skill.</div>
+
+          <div class="bucket" style="margin-top:14px">
+            <h3>Soft Skills</h3>
+            <div id="softChips" class="chips" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div>
+          <label for="langInput">Add Languages</label>
+          <div class="row">
+            <input id="langInput" type="text" placeholder="e.g., English, Arabic, French">
+            <select id="langLevel" aria-label="Proficiency level">
+              <option value="">Level</option>
+              <option>Native</option>
+              <option>Fluent</option>
+              <option>Professional</option>
+              <option>Intermediate</option>
+              <option>Basic</option>
+            </select>
+            <button class="btn-line" type="button" id="addLang">＋ Add</button>
+          </div>
+          <div class="error" id="err_lang">Please enter a language and choose a level.</div>
+
+          <div class="bucket" style="margin-top:14px">
+            <h3>Languages</h3>
+            <div id="langChips" class="chips" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn-secondary" href="step4-certificates.html">← Back to Step 4</a>
+        <div class="row" style="gap:10px">
+          <button class="btn-line" type="button" id="bulkAdd">＋ Paste comma-separated list</button>
+          <button class="btn-primary" type="button" id="saveFinish">Save & Finish</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <script>
+    (function(){
+      const storeKey = 'cvsenior-step5-skills';
+      const builderKey = 'cvsenior-builder';
+
+      const $ = s => document.querySelector(s);
+      const techChips = $('#techChips');
+      const softChips = $('#softChips');
+      const langChips = $('#langChips');
+
+      // State (persisted per step)
+      let state = { technical: [], soft: [], languages: [] };
+      try {
+        const saved = JSON.parse(localStorage.getItem(storeKey) || '{}');
+        if (saved && (saved.technical || saved.soft || saved.languages)) {
+          state = {
+            technical: saved.technical || [],
+            soft: saved.soft || [],
+            languages: saved.languages || [],
+          };
+        }
+      } catch {}
+
+      function normalize(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+      function withLevel(name, lvl){ return lvl ? `${name} (${lvl})` : name; }
+      function escapeHtml(s){return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[m]));}
+
+      function render(){
+        // skills
+        techChips.innerHTML = state.technical.length ? '' : '<span class="hint">No technical skills yet.</span>';
+        softChips.innerHTML = state.soft.length ? '' : '<span class="hint">No soft skills yet.</span>';
+        langChips.innerHTML = state.languages.length ? '' : '<span class="hint">No languages yet.</span>';
+
+        state.technical.forEach((t, i)=>{
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.innerHTML = `${escapeHtml(t)} <button title="Remove" data-del-tech="${i}">×</button>`;
+          techChips.appendChild(chip);
+        });
+        state.soft.forEach((t, i)=>{
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.innerHTML = `${escapeHtml(t)} <button title="Remove" data-del-soft="${i}">×</button>`;
+          softChips.appendChild(chip);
+        });
+        state.languages.forEach((t, i)=>{
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.innerHTML = `${escapeHtml(t)} <button title="Remove" data-del-lang="${i}">×</button>`;
+          langChips.appendChild(chip);
+        });
+
+        // bind remove
+        techChips.querySelectorAll('[data-del-tech]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            const i = +btn.getAttribute('data-del-tech');
+            state.technical.splice(i,1); persist(); render();
+          });
+        });
+        softChips.querySelectorAll('[data-del-soft]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            const i = +btn.getAttribute('data-del-soft');
+            state.soft.splice(i,1); persist(); render();
+          });
+        });
+        langChips.querySelectorAll('[data-del-lang]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            const i = +btn.getAttribute('data-del-lang');
+            state.languages.splice(i,1); persist(); render();
+          });
+        });
+      }
+
+      function persist(){
+        localStorage.setItem(storeKey, JSON.stringify(state));
+        // Mirror to builder: flat skills + languages array
+        try{
+          const b = JSON.parse(localStorage.getItem(builderKey) || '{}');
+          b.sections ??= {};
+          const combinedSkills = [...state.technical, ...state.soft];
+          b.sections.skills = Array.from(new Set(combinedSkills));
+          b.sections.lang = state.languages.slice();  // keep levels like "English (Fluent)"
+          localStorage.setItem(builderKey, JSON.stringify(b));
+        }catch{}
+      }
+
+      function addTo(bucket, name, level, requireLevel=false){
+        const cleanName = normalize(name);
+        const cleanLevel = normalize(level);
+        if(!cleanName) return false;
+        if(requireLevel && !cleanLevel) return false;
+        const item = withLevel(cleanName, cleanLevel);
+        if(!state[bucket].includes(item)){
+          state[bucket].push(item);
+          persist(); render();
+        }
+        return true;
+      }
+
+      // Add technical
+      $('#addTech').addEventListener('click', ()=>{
+        const ok = addTo('technical', $('#techInput').value, $('#techLevel').value, false);
+        if(!ok){ $('#err_tech').style.display='block'; return; }
+        $('#err_tech').style.display='none';
+        $('#techInput').value=''; $('#techLevel').value='';
+      });
+
+      // Add soft
+      $('#addSoft').addEventListener('click', ()=>{
+        const ok = addTo('soft', $('#softInput').value, $('#softLevel').value, false);
+        if(!ok){ $('#err_soft').style.display='block'; return; }
+        $('#err_soft').style.display='none';
+        $('#softInput').value=''; $('#softLevel').value='';
+      });
+
+      // Add language (level required)
+      $('#addLang').addEventListener('click', ()=>{
+        const ok = addTo('languages', $('#langInput').value, $('#langLevel').value, true);
+        if(!ok){ $('#err_lang').style.display='block'; return; }
+        $('#err_lang').style.display='none';
+        $('#langInput').value=''; $('#langLevel').value='';
+      });
+
+      // Bulk paste (adds to Technical)
+      $('#bulkAdd').addEventListener('click', ()=>{
+        const raw = prompt('Paste a comma-separated list of skills (added to Technical):\nExample: Linux, CCNA, HTML, JavaScript');
+        if(!raw) return;
+        raw.split(',').map(x=>normalize(x)).filter(Boolean).forEach(s=> addTo('technical', s, '', false));
+      });
+
+      // Save & Finish
+      $('#saveFinish').addEventListener('click', ()=>{
+        const total = state.technical.length + state.soft.length + state.languages.length;
+        if(total === 0){
+          $('#err_tech').style.display='block';
+          $('#err_soft').style.display='block';
+          $('#err_lang').style.display='block';
+          return;
+        }
+        $('#err_tech').style.display='none';
+        $('#err_soft').style.display='none';
+        $('#err_lang').style.display='none';
+        window.location.href = 'step6-design.html';
+      });
+
+      // Init
+      render();
+    })();
+  </script>
+  <script>
+(function(){
+  const tl = document.querySelector('section.timeline');
+  if(!tl || tl.dataset.upgraded) return;
+  tl.dataset.upgraded = 'true';
+
+  const steps = [
+    {n:1, label:'Personal Info',    sub:'Contact & profile.',         href:'step1-personal.html', done:true},
+    {n:2, label:'Summary',          sub:'2–4 lines.',                 href:'step2-summary.html',  done:true},
+    {n:3, label:'Experience',       sub:'Roles & impact.',            href:'step3-experience.html', done:true},
+    {n:4, label:'Certificates',     sub:'Issuer & expiry.',           href:'step4-certificates.html', done:true},
+    {n:5, label:'Skills & Lang',    sub:'Tech, soft, languages.',     current:true},
+    {n:6, label:'Design',           sub:'Choose template & theme.'},
+  ];
+
+  tl.innerHTML = steps.map(s=>{
+    const cls = `tl-item${s.done?' done':''}${s.current?' current':''}`;
+    if(s.href){
+      return `<a class="tl-link ${cls}" href="${s.href}">
+                <div class="tl-dot" aria-hidden="true">${s.n}</div>
+                <div class="tl-copy"><b>${s.label}</b><small>${s.sub}</small></div>
+              </a>`;
+    }
+    return `<div class="${cls}" ${s.current?'aria-current="step"':''}>
+              <div class="tl-dot" aria-hidden="true">${s.n}</div>
+              <div class="tl-copy"><b>${s.label}</b><small>${s.sub}</small></div>
+            </div>`;
+  }).join('');
+})();
+</script>
+
+</body>
+</html>

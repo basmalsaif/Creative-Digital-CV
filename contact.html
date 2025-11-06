@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" class="contact-page">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Contact</title>
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css" />
+  <style>
+    .page{max-width:1200px;margin:0 auto;padding:40px 24px 48px}
+    .hero-h1{font-weight:900;font-size:42px;margin:24px 0 8px}
+    .hero-sub{max-width:920px;line-height:1.7;margin:0 0 28px;color:var(--muted)}
+    .contact-wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:28px;align-items:start}
+    @media (max-width:980px){.contact-wrap{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid #e8ecf3;box-shadow:0 12px 28px rgba(16,24,40,.06);border-radius:18px;padding:24px 22px}
+    .card h3{margin:0 0 14px;font-weight:800;font-size:22px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width:720px){.form-grid{grid-template-columns:1fr}}
+    .form-row{display:flex;flex-direction:column;gap:8px}
+    .contact-page input[type="text"],.contact-page input[type="email"],.contact-page select,.contact-page textarea{width:100%;background:#fff;border:1px solid #dfe5ef;border-radius:12px;padding:12px 14px;font:500 16px/1.4 "Cairo",sans-serif;color:#0f172a;outline:0;transition:border-color .15s, box-shadow .15s}
+    .contact-page textarea{min-height:180px;resize:vertical}
+    .contact-page input:focus,.contact-page select:focus,.contact-page textarea:focus{border-color:#8b5cf6;box-shadow:0 0 0 4px rgba(139,92,246,.15)}
+    .actions{display:flex;align-items:center;gap:14px;margin-top:8px;flex-wrap:wrap}
+    .sidebar-card .contact-item{display:flex;gap:14px;padding:14px;border-radius:16px;align-items:flex-start;transition:transform .15s, background .15s}
+    .sidebar-card .contact-item:hover{background:#f8f7ff;transform:translateY(-1px)}
+    .icon-wrap{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#ede9fe,#e9d5ff);display:grid;place-items:center;flex:0 0 auto}
+    .icon-wrap img{width:22px;height:22px;opacity:.9}
+    .foot{margin-top:20px;padding-bottom:20px;text-align:center;color:#65738c;font-size:14px}
+	
+	
+    /* ----------------------------------------------------------------------
+       Transparent "Back to site" chip button placed in the header area
+       ---------------------------------------------------------------------- */
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+
+    /* Validation error message for summary textarea (hidden by default). */
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+
+    /* When invalid, add a red border + subtle red focus ring. */
+    textarea[aria-invalid="true"]{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+  <main class="page">
+    <h1 class="hero-h1">Contact Us</h1>
+    <p class="hero-sub">Have a question about the CV builder, templates, or your account? Send us a message and we’ll reply by email.</p>
+    <section class="contact-wrap">
+      <section class="card">
+        <h3>Send a message</h3>
+        <form id="contactForm">
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required>
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-row">
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic" required>
+                <option value="">Choose a topic…</option>
+                <option>Account & Sign-in</option>
+                <option>Builder / Steps</option>
+                <option>Templates & Export</option>
+                <option>Billing & Receipts</option>
+                <option>Bug / Feedback</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="order">Reference (optional)</label>
+              <input id="order" name="order" type="text" placeholder="Ticket/Ref # (if any)">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:10px">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us how we can help…" required></textarea>
+            <p class="hint" style="margin-top:8px">Please avoid sharing passwords or sensitive data.</p>
+          </div>
+          <div class="actions">
+            <button class="btn-primary" type="submit">Send to Support</button>
+            <button class="btn" type="reset">Reset</button>
+          </div>
+        </form>
+      </section>
+      <aside class="card sidebar-card">
+        <h3>Ways to reach us</h3>
+        <div class="contact-item">
+          <div class="icon-wrap"><img src="icons/email.png" alt=""></div>
+          <div>
+            <h4>Email</h4>
+            <p><a class="btn-link" href="mailto:support@example.com">support@example.com</a></p>
+            <p class="hint">For general questions and account help.</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon-wrap"><img src="icons/paper.png" alt=""></div>
+          <div>
+            <h4>Help Center</h4>
+            <p><a class="btn-link" href="support.html">Open Support</a></p>
+            <p class="hint">Guides and troubleshooting steps.</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon-wrap"><img src="icons/lock.png" alt=""></div>
+          <div>
+            <h4>Report a security issue</h4>
+            <p><a class="btn-link" href="security.html">Security &amp; Privacy</a></p>
+            <p class="hint">Responsible disclosure guidelines.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+      </div>
+    </div>
+  </footer>
+
+  </main>
+</body>
+</html>

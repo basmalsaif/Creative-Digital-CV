@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- =================== META =================== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQs — Creative Digital CV</title>
+  <meta name="description" content="Quick answers about accounts, CV builder steps, exporting to PDF/ATS, privacy, billing, and troubleshooting." />
+  <meta name="theme-color" content="#7c3aed" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FAQs — Creative Digital CV" />
+  <meta property="og:description" content="Find answers about the builder, exporting, privacy, billing, and more." />
+  <meta property="og:image" content="icons/preview.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="icons/logo.png" />
+
+  <!-- Fonts + Global Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css" />
+
+  <!-- Page Styles -->
+  <style>
+    :root{
+      --faq-radius: 20px;
+      --faq-border: 1px solid var(--border, #e5e7eb);
+      --faq-bg: var(--card, #ffffff);
+      --faq-muted: var(--muted, #6b7280);
+      --faq-brand: var(--brand, #7c3aed);
+      --faq-shadow: var(--shadow, 0 8px 28px rgba(0,0,0,.06));
+      --chip-bg: #eef2ff;
+      --chip-bd: #e0e7ff;
+    }
+
+    /* Header */
+    .faq-header{
+      background: linear-gradient(90deg, rgba(255,255,255,.9) 0%, #bca9ff 40%, #7c3aed 100%);
+      color:#111827;
+      padding:14px 18px;
+      display:flex;align-items:center;gap:16px;justify-content:space-between;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .faq-header .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .faq-header .brand img{height:28px}
+    .faq-header .nav a{margin-left:16px}
+
+    /* Layout */
+    .faq-page{max-width:1100px;margin:0 auto;padding:22px 16px 80px}
+    .faq-hero{display:grid;gap:8px;margin:6px 0 14px}
+    .faq-hero h1{margin:0;font-size:32px;letter-spacing:.2px}
+    .faq-hero p{margin:0;color:var(--faq-muted)}
+    .faq-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+
+    /* Search + actions */
+    .search{
+      display:flex;align-items:center;gap:8px;background:#fff;border:var(--faq-border);
+      border-radius:14px;padding:10px 12px;min-width:260px
+    }
+    .search input{border:0;outline:0;width:240px;font:inherit}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+      background:var(--chip-bg);border:1px solid var(--chip-bd);font-weight:700;color:var(--faq-brand);font-size:12px}
+    .bar{display:flex;flex-wrap:wrap;gap:8px}
+    .bar button{border:var(--faq-border);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:280px 1fr;gap:16px;margin-top:12px}
+    @media (max-width:1000px){.grid{grid-template-columns:1fr}}
+
+    /* Sidebar */
+    aside{
+      position:sticky;top:14px;background:var(--faq-bg);border:var(--faq-border);border-radius:var(--faq-radius);
+      padding:14px;box-shadow:var(--faq-shadow);height:max-content
+    }
+    .cats{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+    .cats a{display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:var(--faq-border);text-decoration:none;color:inherit;background:#fff}
+    .cats a[aria-current="true"]{
+      outline:3px solid rgba(124,58,237,.15);
+      box-shadow:0 0 0 2px #edeaff inset;
+    }
+    .tiny{font-size:12px;color:var(--faq-muted)}
+
+    /* Cards + FAQs */
+    .content{display:grid;gap:18px}
+    .card{background:var(--faq-bg);border:var(--faq-border);border-radius:var(--faq-radius);box-shadow:var(--faq-shadow);overflow:hidden}
+    .card h2,.card h3{margin:0;padding:16px 18px;border-bottom:var(--faq-border)}
+    .card > h2{font-size:28px;letter-spacing:.2px}
+    .card > h2::after{
+      content:"";display:block;width:120px;height:2px;
+      background:linear-gradient(90deg,#e9eaf3,transparent);margin:8px 0 0;
+    }
+
+    .faq-list{display:block}
+    details.faq-item{position:relative;background:var(--faq-bg)}
+    details.faq-item + details.faq-item{border-top:var(--faq-border)}
+    summary{
+      list-style:none;cursor:pointer;padding:16px 56px 16px 18px;display:flex;gap:12px;justify-content:space-between;align-items:center;font-weight:700
+    }
+    summary::-webkit-details-marker{display:none}
+    .faq-body{padding:0 18px 18px;color:#334155}
+    .k{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:2px 6px;font-family:ui-monospace,Consolas,Monaco,monospace}
+    .note{background:#fafbff;border:var(--faq-border);border-radius:12px;padding:12px}
+    .muted{color:var(--faq-muted)}
+    mark.fq{padding:.1em .25em;border-radius:.2em;background:#fff3bf}
+
+    .copylink{
+      position:absolute;right:14px;top:12px;
+      opacity:.0; transform:translateY(-2px);
+      transition:.2s ease; line-height:1; font-size:14px;
+      border:1px solid var(--border,#e5e7eb); background:#fff;
+      border-radius:10px; padding:6px 8px; color:#6b7280;
+    }
+    .faq-item:hover .copylink{opacity:1; transform:none}
+
+    /* Empty state */
+    .faq-empty{
+      display:none; padding:20px; border:1px dashed var(--border,#e5e7eb);
+      border-radius:14px; color:var(--muted,#6b7280); background:#fafaff;
+    }
+
+    /* Anchor offset */
+    :target{scroll-margin-top:90px}
+
+    @media (prefers-color-scheme: dark){
+      .search{background:rgba(255,255,255,.06)}
+      .bar button{background:rgba(255,255,255,.06)}
+      mark.fq{background:rgba(255,255,0,.25)}
+    }
+
+    /* Print */
+    @media print{
+      header, .faq-tools, aside, footer, .note, .bar { display:none !important; }
+      .faq-page{padding:0}
+      .content .card{box-shadow:none;border-color:#d1d5db}
+      a[href]:after{content:" (" attr(href) ")"; font-size:12px}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+
+  <!-- Top bar -->
+    <!-- Shared header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="actions">
+      <a class="btn" href="contact.html" style="text-decoration:none">Contact us</a>
+    </div>
+  </header>
+
+  <main id="main" class="faq-page" role="main" aria-labelledby="title">
+    <section class="faq-hero">
+      <nav aria-label="Breadcrumb" class="tiny">
+        <a href="index.html">Home</a> / <span aria-current="page">FAQs</span>
+      </nav>
+      <h1 id="title">Frequently Asked Questions</h1>
+      <p class="muted">Search or browse by category. You can deep-link to any question and share it.</p>
+
+      <div class="faq-tools" role="search">
+        <div class="search" aria-label="Search FAQs">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M21 21l-4.3-4.3m1.6-5.1A7.8 7.8 0 1 1 3.8 7.8 7.8 7.8 0 0 1 18.3 11.6z"/></svg>
+          <input id="q" type="search" placeholder="Search keywords… (export, login, ATS)" autocomplete="off" />
+        </div>
+        <span class="chip" id="count">All</span>
+        <div class="bar" role="group" aria-label="Search actions">
+          <button id="clearBtn" type="button" title="Clear search">Clear</button>
+          <button id="expandBtn" type="button" title="Expand all">Expand all</button>
+          <button id="collapseBtn" type="button" title="Collapse all">Collapse all</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="FAQ content">
+      <!-- Mobile category select (shown <1000px via JS) -->
+      <div class="tiny" id="m-cat" style="display:none;margin:8px 0 10px">
+        <label for="mCatSel" class="tiny">Category</label>
+        <select id="mCatSel" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
+          <option value="#account">Account & Sign-in</option>
+          <option value="#builder">Builder & Templates</option>
+          <option value="#export">Export & ATS</option>
+          <option value="#privacy">Privacy & Security</option>
+          <option value="#billing">Billing</option>
+          <option value="#troubleshoot">Troubleshooting</option>
+        </select>
+      </div>
+
+      <!-- Sidebar -->
+      <aside aria-label="FAQ categories">
+        <strong style="display:block;margin-bottom:8px">Browse</strong>
+        <nav class="cats" aria-label="Categories list">
+          <a href="#account" id="link-account" aria-current="true">Account & Sign-in</a>
+          <a href="#builder" id="link-builder">Builder & Templates</a>
+          <a href="#export" id="link-export">Export & ATS</a>
+          <a href="#privacy" id="link-privacy">Privacy & Security</a>
+          <a href="#billing" id="link-billing">Billing</a>
+          <a href="#troubleshoot" id="link-troubleshoot">Troubleshooting</a>
+        </nav>
+        <p class="tiny" style="margin-top:10px">
+          Tip: Press <span class="k">/</span> to focus search. Press <span class="k">Enter</span> to toggle the first result.
+        </p>
+      </aside>
+
+      <!-- Content -->
+      <section class="content">
+        <!-- Empty state placeholder -->
+        <div class="faq-empty">No results. Try other keywords like <b>PDF</b>, <b>ATS</b>, or <b>password</b>.</div>
+
+        <!-- Account -->
+        <article id="account" class="card" aria-labelledby="h-account">
+          <h2 id="h-account">Account & Sign-in</h2>
+          <div class="faq-list">
+            <details id="q-account-create" class="faq-item" data-tags="account sign in signup register google linkedin login">
+              <summary><span>How do I create an account?</span></summary>
+              <button type="button" class="copylink" data-for="q-account-create" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Go to <a class="k" href="register.html">register.html</a>, add your name, email, and password, then accept the Terms. You can also continue with Google or LinkedIn.
+              </div>
+            </details>
+
+            <details id="q-forgot" class="faq-item" data-tags="forgot password reset email link code">
+              <summary><span>I forgot my password—what should I do?</span></summary>
+              <button type="button" class="copylink" data-for="q-forgot" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Use <a class="k" href="forgot-password.html">Forgot Password</a>. We’ll email a reset link to your registered address. After resetting, sign in on <a class="k" href="login.html">login.html</a>.
+              </div>
+            </details>
+
+            <details id="q-email" class="faq-item" data-tags="email verify not receiving otp">
+              <summary><span>I’m not receiving emails. Any tips?</span></summary>
+              <button type="button" class="copylink" data-for="q-email" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Check spam/junk, add our address to contacts, and try again. If it persists, try a different mailbox and include timestamp + screenshot when contacting support.
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <!-- Builder -->
+        <article id="builder" class="card" aria-labelledby="h-builder">
+          <h2 id="h-builder">Builder & Templates</h2>
+          <div class="faq-list">
+            <details id="q-steps" class="faq-item" data-tags="steps flow timeline personal summary experience certificates skills languages design">
+              <summary><span>What is the recommended order of steps?</span></summary>
+              <button type="button" class="copylink" data-for="q-steps" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Personal Info → Summary → Experience → Certificates → Skills & Languages → Design. You can revisit any step before exporting.
+              </div>
+            </details>
+
+            <details id="q-design" class="faq-item" data-tags="template color font design theme">
+              <summary><span>Can I change template, color, and font later?</span></summary>
+              <button type="button" class="copylink" data-for="q-design" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Yes. Use the Design step to switch templates, set accent color, and choose fonts; the preview updates instantly.
+              </div>
+            </details>
+
+            <details id="q-autosave" class="faq-item" data-tags="autosave local storage drafts device">
+              <summary><span>Does the builder auto-save my progress?</span></summary>
+              <button type="button" class="copylink" data-for="q-autosave" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Drafts save locally in your browser. Clearing site data or switching devices removes local drafts—export or copy data first.
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <!-- Export -->
+        <article id="export" class="card" aria-labelledby="h-export">
+          <h2 id="h-export">Export & ATS</h2>
+          <div class="faq-list">
+            <details id="q-pdf" class="faq-item" data-tags="pdf print download preview export a4">
+              <summary><span>How do I export my CV to PDF?</span></summary>
+              <button type="button" class="copylink" data-for="q-pdf" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Open <a class="k" href="build-cv.html" target="_blank" rel="noopener">Preview</a> → browser print → “Save as PDF”. Set paper to A4, enable background graphics, 100% scale, default margins.
+              </div>
+            </details>
+
+            <details id="q-ats" class="faq-item" data-tags="ats screeners keywords parsing">
+              <summary><span>Will my CV be ATS-friendly?</span></summary>
+              <button type="button" class="copylink" data-for="q-ats" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Yes—layouts are text-based. Keep headings standard, avoid tables for key content, and align keywords to the target job description.
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <!-- Privacy -->
+        <article id="privacy" class="card" aria-labelledby="h-privacy">
+          <h2 id="h-privacy">Privacy & Security</h2>
+          <div class="faq-list">
+            <details id="q-data" class="faq-item" data-tags="privacy data storage cookies security">
+              <summary><span>What data do you store?</span></summary>
+              <button type="button" class="copylink" data-for="q-data" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Minimal account info (e.g., name, email) to run your account. Builder drafts stay locally on your device. See <a class="k" href="privacy.html">Privacy</a>.
+              </div>
+            </details>
+
+            <details id="q-share" class="faq-item" data-tags="sharing selling third party public">
+              <summary><span>Do you sell user data or share CVs publicly?</span></summary>
+              <button type="button" class="copylink" data-for="q-share" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                No. We don’t sell personal data or publish CVs. You control what you export or share.
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <!-- Billing -->
+        <article id="billing" class="card" aria-labelledby="h-billing">
+          <h2 id="h-billing">Billing</h2>
+          <div class="faq-list">
+            <details id="q-paid" class="faq-item" data-tags="pricing premium plans refund invoice">
+              <summary><span>Are there paid features?</span></summary>
+              <button type="button" class="copylink" data-for="q-paid" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                If premium features are offered, pricing appears at checkout. Unless noted, completed premium exports are non-refundable. See <a class="k" href="terms.html#payments">Terms — Payments</a>.
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <!-- Troubleshooting -->
+        <article id="troubleshoot" class="card" aria-labelledby="h-troubleshoot">
+          <h2 id="h-troubleshoot">Troubleshooting</h2>
+          <div class="faq-list">
+            <details id="q-layout" class="faq-item" data-tags="pdf layout fonts margins scale print">
+              <summary><span>My PDF layout looks different. How can I fix it?</span></summary>
+              <button type="button" class="copylink" data-for="q-layout" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                In print settings: A4, default margins, 100% scale, background graphics ON. If still off, try another browser and re-export.
+              </div>
+            </details>
+
+            <details id="q-preview" class="faq-item" data-tags="cache localstorage stale changes not showing">
+              <summary><span>My changes aren’t showing in Preview.</span></summary>
+              <button type="button" class="copylink" data-for="q-preview" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Save again, refresh preview, ensure storage isn’t blocked. Clearing site cache removes local drafts—export first.
+              </div>
+            </details>
+
+            <details id="q-support" class="faq-item" data-tags="contact help ticket email support">
+              <summary><span>Still stuck—how do I reach support?</span></summary>
+              <button type="button" class="copylink" data-for="q-support" aria-label="Copy link to this question">🔗</button>
+              <div class="faq-body">
+                Use <a class="k" href="contact.html">Contact</a> and include screenshots + steps to reproduce.
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <div class="note">
+          Can’t find your answer? <a href="contact.html" style="font-weight:700;color:#7c3aed;text-decoration:none">Contact Support</a>.
+          <span class="tiny">Business hours: Sun–Thu, 9:00–17:00 AST.</span>
+        </div>
+      </section>
+    </section>
+
+    <footer style="margin-top:24px">
+      <div class="foot">
+        <div>© 2025 Creative Digital CV — v1.0 Beta</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <a href="terms.html">Terms</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="faqs.html" aria-current="page">FAQs</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- GLOBAL JS -->
+  <script src="js/app.js" defer></script>
+
+  <!-- Page logic -->
+  <script defer>
+  (function(){
+    const input = document.getElementById('q');
+    const count = document.getElementById('count');
+    const expandBtn = document.getElementById('expandBtn');
+    const collapseBtn = document.getElementById('collapseBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const items = Array.from(document.querySelectorAll('details.faq-item'));
+    const sections = Array.from(document.querySelectorAll('.content > article'));
+    const cats = {
+      account: document.getElementById('link-account'),
+      builder: document.getElementById('link-builder'),
+      export: document.getElementById('link-export'),
+      privacy: document.getElementById('link-privacy'),
+      billing: document.getElementById('link-billing'),
+      troubleshoot: document.getElementById('link-troubleshoot')
+    };
+    const empty = document.querySelector('.faq-empty');
+
+    const strip = (s)=> (s||'').replace(/\s+/g,' ').trim().toLowerCase();
+
+    function highlight(el, q){
+      el.querySelectorAll('mark.fq').forEach(m=>m.replaceWith(m.textContent));
+      if(!q) return;
+      const target = el.querySelector('summary span');
+      if(!target) return;
+      const text = target.textContent;
+      const i = text.toLowerCase().indexOf(q.toLowerCase());
+      if(i>-1){
+        const before = document.createTextNode(text.slice(0,i));
+        const mark = document.createElement('mark'); mark.className='fq'; mark.textContent = text.slice(i,i+q.length);
+        const after = document.createTextNode(text.slice(i+q.length));
+        target.replaceChildren(before, mark, after);
+      }
+    }
+
+    function applyFilter(q){
+      const term = strip(q);
+      let visible = 0;
+      items.forEach(d=>{
+        d.hidden = false;
+        if(!term){ highlight(d,''); return; }
+        const hay = strip(
+          d.querySelector('summary')?.textContent + ' ' +
+          (d.getAttribute('data-tags')||'') + ' ' +
+          d.querySelector('.faq-body')?.textContent
+        );
+        const match = hay.includes(term);
+        d.hidden = !match;
+        if(match){ visible++; highlight(d, term); } else { highlight(d,''); }
+      });
+      const hasResults = term ? visible>0 : true;
+      empty.style.display = hasResults ? 'none' : 'block';
+      count.textContent = term ? (visible ? `${visible} match${visible>1?'es':''}` : 'No matches') : 'All';
+    }
+
+    function expandAll(){ items.filter(d=>!d.hidden).forEach(d=>d.open = true); }
+    function collapseAll(){ items.filter(d=>!d.hidden).forEach(d=>d.open = false); }
+
+    function setCurrent(id){
+      Object.values(cats).forEach(a=>a && a.removeAttribute('aria-current'));
+      const a = cats[id]; if(a) a.setAttribute('aria-current','true');
+    }
+
+    function openHashTarget(){
+      const id = location.hash.replace('#','');
+      if(!id) return;
+      const el = document.getElementById(id);
+      if(el && el.tagName.toLowerCase()==='details'){ el.open = true; el.scrollIntoView({block:'start'}); }
+    }
+
+    // Events
+    input?.addEventListener('input', ()=>applyFilter(input.value));
+    clearBtn?.addEventListener('click', ()=>{ input.value=''; applyFilter(''); input.focus(); });
+    expandBtn?.addEventListener('click', expandAll);
+    collapseBtn?.addEventListener('click', collapseAll);
+
+    // Keyboard helpers
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === '/' && document.activeElement !== input){ e.preventDefault(); input?.focus(); }
+      if(e.key === 'Enter' && document.activeElement === input){
+        const first = items.find(d=>!d.hidden);
+        if(first){ first.open = !first.open; }
+      }
+    });
+
+    // Scrollspy for left categories
+    const io = new IntersectionObserver((entries)=>{
+      const visible = entries
+        .filter(e=>e.isIntersecting)
+        .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible){ setCurrent(visible.target.id); }
+    }, {rootMargin:"-40% 0px -55% 0px", threshold:[0,0.25,0.5,0.75,1]});
+    sections.forEach(s=>io.observe(s));
+
+    // Deep link copy buttons
+    document.querySelectorAll('.copylink').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const targetId = btn.getAttribute('data-for');
+        const url = new URL(location.href);
+        url.hash = targetId;
+        navigator.clipboard?.writeText(url.toString());
+        btn.textContent = '✔'; setTimeout(()=>btn.textContent='🔗', 900);
+        history.replaceState(null, '', url);
+      });
+    });
+
+    // Mobile category select behavior
+    const m = document.getElementById('m-cat');
+    const sel = document.getElementById('mCatSel');
+    const mq = window.matchMedia('(max-width: 1000px)');
+    function mob(){ m.style.display = mq.matches ? 'block' : 'none'; }
+    mq.addEventListener('change', mob); mob();
+    sel?.addEventListener('change', ()=>{ location.hash = sel.value; });
+
+    // Prefill from ?q=
+    const sp = new URLSearchParams(location.search);
+    const q0 = sp.get('q'); if(q0){ input.value=q0; applyFilter(q0); }
+
+    // Open deep-linked question on load
+    openHashTarget();
+  })();
+  </script>
+
+  <!-- Structured Data (FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How do I create an account?","acceptedAnswer":{"@type":"Answer","text":"Go to register.html, add your details, and accept the Terms. You can also continue with Google or LinkedIn."}},
+      {"@type":"Question","name":"I forgot my password—what should I do?","acceptedAnswer":{"@type":"Answer","text":"Use Forgot Password and follow the email link, then sign in again on login.html."}},
+      {"@type":"Question","name":"I’m not receiving emails. Any tips?","acceptedAnswer":{"@type":"Answer","text":"Check spam/junk, add our address to contacts, and try again. If it persists, try a different mailbox and share details with support."}},
+      {"@type":"Question","name":"What is the recommended order of steps?","acceptedAnswer":{"@type":"Answer","text":"Personal Info → Summary → Experience → Certificates → Skills & Languages → Design."}},
+      {"@type":"Question","name":"Can I change template, color, and font later?","acceptedAnswer":{"@type":"Answer","text":"Yes, in the Design step; the preview updates instantly."}},
+      {"@type":"Question","name":"Does the builder auto-save my progress?","acceptedAnswer":{"@type":"Answer","text":"Drafts are saved locally in your browser; clearing site data removes them."}},
+      {"@type":"Question","name":"How do I export my CV to PDF?","acceptedAnswer":{"@type":"Answer","text":"Open Preview and use your browser print to save as PDF (A4, background graphics ON, 100% scale)."}},
+      {"@type":"Question","name":"Will my CV be ATS-friendly?","acceptedAnswer":{"@type":"Answer","text":"Yes—layouts are text-based; use standard headings and align keywords to the job description."}},
+      {"@type":"Question","name":"What data do you store?","acceptedAnswer":{"@type":"Answer","text":"Minimal account info. Builder drafts stay on your device. See the Privacy page."}},
+      {"@type":"Question","name":"Are there paid features?","acceptedAnswer":{"@type":"Answer","text":"If offered, pricing appears at checkout. Completed premium exports are generally non-refundable."}},
+      {"@type":"Question","name":"My PDF layout looks different. How can I fix it?","acceptedAnswer":{"@type":"Answer","text":"Set A4, default margins, 100% scale, background graphics ON. Try another browser if needed."}},
+      {"@type":"Question","name":"My changes aren’t showing in Preview.","acceptedAnswer":{"@type":"Answer","text":"Save again, refresh, and ensure storage isn’t blocked. Clearing cache removes drafts."}}
+    ]
+  }
+  </script>
+
+  <noscript>
+    <div class="note" style="max-width:1100px;margin:12px auto">
+      JavaScript is disabled. You can still expand questions using the built-in details/summary controls.
+    </div>
+  </noscript>
+</body>
+</html>

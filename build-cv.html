@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Creative Digital CV — Preview & Download</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --brand:#7c3aed;
+    --bg:#f8fafc;
+    --text:#0f172a;
+    --muted:#475569;
+  }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Cairo',sans-serif;
+    margin:0;padding:0;
+    display:flex;justify-content:center;
+  }
+  .page{
+    width:210mm;
+    min-height:297mm;
+    background:#fff;
+    box-shadow:0 0 20px rgba(0,0,0,.1);
+    margin:20px auto;
+    padding:25mm;
+    border-radius:8px;
+  }
+  h1,h2,h3{margin:0 0 8px;}
+  h1{font-size:24px;color:var(--brand)}
+  h2{font-size:18px;border-bottom:2px solid var(--brand);padding-bottom:4px;margin-top:18px}
+  h3{font-size:15px;color:var(--brand)}
+  p{margin:4px 0 8px;font-size:14px;line-height:1.4}
+  ul{margin:4px 0 12px 18px;padding:0;font-size:14px}
+  .head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;border-bottom:3px solid var(--brand);padding-bottom:8px;margin-bottom:12px}
+  .head div{min-width:160px}
+  .contact p{font-size:13px;margin:2px 0;color:var(--muted)}
+  .taglist{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .tag{background:#eef2ff;border:1px solid #dbe4ff;border-radius:999px;padding:4px 10px;font-size:12px}
+  .certificate,.exp{margin-bottom:10px}
+  .exp h3{margin-bottom:2px}
+  .controls{text-align:center;margin:16px}
+  .btn{background:var(--brand);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer}
+  @media print{
+    body{background:#fff;box-shadow:none;}
+    .controls{display:none}
+    .page{box-shadow:none;margin:0;border-radius:0;padding:20mm;}
+  }
+</style>
+</head>
+<body>
+  <div class="page" id="cvPreview">
+    <div class="head">
+      <div>
+        <h1 id="cvName">Your Name</h1>
+        <p id="cvDegree" style="font-weight:600;margin:0"></p>
+        <p id="cvMajor"></p>
+      </div>
+      <div class="contact" id="cvContact"></div>
+    </div>
+
+    <section id="summarySec"><h2>Professional Summary</h2><p id="cvSummary"></p></section>
+    <section id="expSec"><h2>Experience</h2><div id="cvExp"></div></section>
+    <section id="certSec"><h2>Certificates</h2><div id="cvCert"></div></section>
+    <section id="skillsSec"><h2>Skills</h2><div class="taglist" id="cvSkills"></div></section>
+    <section id="langSec"><h2>Languages</h2><div class="taglist" id="cvLang"></div></section>
+  </div>
+
+  <div class="controls">
+    <button class="btn" onclick="window.print()">Download / Print CV</button>
+  </div>
+
+<script>
+(function(){
+  const data = JSON.parse(localStorage.getItem('cvsenior-builder')||'{}');
+  const d = data.design || {};
+
+  // Apply font + color
+  if(d.font){ document.body.style.fontFamily = `'${d.font}', sans-serif`; }
+  if(d.color){ document.documentElement.style.setProperty('--brand', d.color); }
+
+  const p = data.sections || {};
+
+  // Personal info
+  const info = p.personal || p.core || {};
+  document.getElementById('cvName').textContent = info.fullName || 'Full Name';
+  if(info.degree) document.getElementById('cvDegree').textContent = info.degree;
+  if(info.major) document.getElementById('cvMajor').textContent = info.major;
+
+  const cEl = document.getElementById('cvContact');
+  const contactParts = [
+    info.email ? `📧 ${info.email}`:'',
+    info.phone ? `📞 ${info.phone}`:'',
+    info.location ? `📍 ${info.location}`:'',
+    info.linkedin ? `🔗 ${info.linkedin}`:''
+  ].filter(Boolean);
+  cEl.innerHTML = contactParts.map(p=>`<p>${p}</p>`).join('');
+
+  // Summary
+  document.getElementById('cvSummary').textContent = (p.summary && p.summary.text) || '';
+
+  // Experience
+  const expWrap = document.getElementById('cvExp');
+  (p.experience||[]).forEach(e=>{
+    const div = document.createElement('div');
+    div.className='exp';
+    div.innerHTML = `
+      <h3>${e.title||''}</h3>
+      <p><strong>${e.company||''}</strong> • ${e.start||''}${e.end?` - ${e.end}`:''}</p>
+      ${e.desc?`<p>${e.desc}</p>`:''}
+    `;
+    expWrap.appendChild(div);
+  });
+
+  // Certificates
+  const certWrap = document.getElementById('cvCert');
+  (p.cert||[]).forEach(c=>{
+    const div = document.createElement('div');
+    div.className='certificate';
+    div.innerHTML = `<p><strong>${c.name||''}</strong> — ${c.org||''} (${c.year||''}${c.expiry?` • Exp ${c.expiry}`:''})</p>`;
+    certWrap.appendChild(div);
+  });
+
+  // Skills
+  const skillWrap = document.getElementById('cvSkills');
+  (p.skills||[]).forEach(s=>{
+    const span=document.createElement('span');
+    span.className='tag';
+    span.textContent=s;
+    skillWrap.appendChild(span);
+  });
+
+  // Languages
+  const langWrap = document.getElementById('cvLang');
+  (p.lang||[]).forEach(l=>{
+    const span=document.createElement('span');
+    span.className='tag';
+    span.textContent=l;
+    langWrap.appendChild(span);
+  });
+})();
+</script>
+
+<script>
+window.addEventListener('message', (e)=>{
+  if(!e?.data || e.data.type!=='cv-design') return;
+  const d = e.data.payload || {};
+  if(d.font){
+    const id = 'live-font';
+    let link = document.getElementById(id);
+    if(!link){
+      link = document.createElement('link');
+      link.id = id; link.rel='stylesheet';
+      document.head.appendChild(link);
+    }
+    const fam = encodeURIComponent(`${d.font}:wght@400;600;700`);
+    link.href = `https://fonts.googleapis.com/css2?family=${fam}&display=swap`;
+    document.body.style.fontFamily = `'${d.font}', sans-serif`;
+  }
+  if(d.color){
+    document.documentElement.style.setProperty('--brand', d.color);
+  }
+  if(d.size){
+    const page = document.querySelector('.page');
+    if(page){
+      page.style.width  = (d.size==='Letter') ? '216mm' : '210mm';
+      page.style.minHeight = (d.size==='Letter') ? '279mm' : '297mm';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

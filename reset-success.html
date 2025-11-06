@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Reset Successful</title>
+
+  <!-- Branding / social -->
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:title" content="Creative Digital CV — Reset Successful">
+  <meta property="og:description" content="Password reset instructions have been sent to your email.">
+  <meta property="og:image" content="icons/preview.png">
+
+  <!-- Font + shared styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Page-specific tweaks -->
+  <style>
+    .header{
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      background: linear-gradient(90deg,#f3e8ff 0%, #a78bfa 50%, #7c3aed 100%);
+      padding:10px 18px;display:flex;align-items:center;gap:18px;justify-content:space-between;
+    }
+    .back a{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:12px;
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      font-weight:700;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.3);
+      transition:all .25s ease;
+    }
+    .back a:hover,.back a:focus-visible{
+      background:rgba(255,255,255,.22);
+      box-shadow:var(--ring);
+    }
+    main{flex:1;}
+    .success-icon{
+      width:70px;height:70px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#7c3aed,#c4b5fd);
+      display:grid;place-items:center;
+      margin:0 auto 20px;
+      box-shadow:0 8px 20px rgba(124,58,237,.3);
+    }
+    .success-icon img{width:34px;height:34px;filter:brightness(0) invert(1);}
+    .success-text h2{
+      text-align:center;
+      margin:0 0 10px;
+      font-size:26px;
+    }
+    .success-text p{
+      text-align:center;
+      color:var(--muted);
+      margin:0 0 30px;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="auth-wrap" role="main" aria-labelledby="page-title">
+    <!-- Centered success panel -->
+    <section class="auth-panel" style="grid-column:1 / -1;max-width:500px;margin:auto;text-align:center;padding:40px 30px;">
+      <div class="success-icon">
+        <img src="icons/check.png" alt="Success icon">
+      </div>
+
+      <div class="success-text">
+        <h2>Password Reset Link Sent</h2>
+        <p>
+          We’ve sent a password reset link to your registered email address.<br>
+          Please check your inbox and follow the instructions to create a new password.
+        </p>
+      </div>
+
+      <a href="login.html" class="btn-primary" style="display:inline-block;width:auto;padding:12px 26px;text-decoration:none;">Return to Sign In</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>

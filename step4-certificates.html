@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Step 4: Professional Certificates</title>
+
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <style>
+    /* ===== Timeline ===== */
+    .timeline{
+      background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+      padding:16px 18px;display:grid;grid-template-columns:repeat(4,1fr);
+      gap:22px;position:relative;overflow:hidden;
+    }
+    .timeline::before{display:none;}
+    .tl-item{position:relative;z-index:1;display:grid;grid-template-columns:32px 1fr;column-gap:12px;align-items:start}
+    .tl-dot{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-weight:800;color:#fff;background:#cbd5e1;box-shadow:0 6px 14px rgba(2,6,23,.08)}
+    .tl-item.done .tl-dot,.tl-item.current .tl-dot{background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 10px 22px rgba(124,58,237,.28)}
+    .tl-copy b{display:block;margin:0 0 2px}
+    .tl-copy small{display:block;color:var(--muted);line-height:1.25}
+    .tl-link{text-decoration:none;color:inherit}
+    .tl-link:hover{text-decoration:none}
+
+    /* ===== Form + list ===== */
+    .form-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px}
+    label{font-weight:700;display:block;margin:10px 0 6px}
+    input,textarea,select{width:100%;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px;font:inherit}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:700px){.row{grid-template-columns:1fr}}
+    .hint{color:var(--muted);font-size:13px}
+    .actions{display:flex;justify-content:space-between;margin-top:18px;gap:10px;flex-wrap:wrap}
+    .btn-secondary{padding:10px 14px;border:1px solid #e5e7eb;background:#fff;border-radius:12px;font-weight:700;color:var(--brand);cursor:pointer;display:inline-block;text-decoration:none}
+    .btn-secondary:hover{text-decoration:none}
+    .btn-line{padding:10px 14px;border:1px dashed #cbd5e1;background:#fff;border-radius:12px;font-weight:700;cursor:pointer}
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+
+    /* List display */
+    .cert-list{margin-top:18px;display:grid;gap:10px}
+    .cert-item{border:1px solid #eef2f7;background:#fafbff;border-radius:14px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+    .cert-head{font-weight:700}
+    .cert-meta{color:#0f172a;font-weight:700}
+    .cert-actions{display:flex;gap:8px}
+    .link{color:var(--brand);font-weight:700;text-decoration:none;word-break:break-all}
+    .link:hover{text-decoration:none}
+	
+	/* ===== Timeline (match Step 3) ===== */
+.timeline{
+  background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+  padding:16px 18px;display:grid;grid-template-columns:repeat(6,1fr);
+  gap:22px;position:relative;overflow:hidden;
+}
+.timeline::before{display:none;}
+.tl-item{
+  position:relative;z-index:1;display:grid;
+  grid-template-columns:32px 1fr;column-gap:12px;align-items:start;
+}
+.tl-dot{
+  width:32px;height:32px;border-radius:999px;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:#cbd5e1;box-shadow:0 6px 14px rgba(2,6,23,.08)
+}
+.tl-item.done .tl-dot,.tl-item.current .tl-dot{
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 10px 22px rgba(124,58,237,.28)
+}
+.tl-copy b{display:block;margin:0 0 2px}
+.tl-copy small{display:block;color:var(--muted);line-height:1.25}
+.tl-link{text-decoration:none;color:inherit}
+.tl-link:hover{text-decoration:none}
+.timeline b,.timeline small,.tl-link{text-decoration:none!important}
+
+/* responsive like Step 1/2/3 */
+@media (max-width:1100px){ .timeline{ grid-template-columns:1fr 1fr } }
+
+
+    /* ----------------------------------------------------------------------
+       Transparent "Back to site" chip button placed in the header area
+       ---------------------------------------------------------------------- */
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+
+    /* Validation error message for summary textarea (hidden by default). */
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+
+    /* When invalid, add a red border + subtle red focus ring. */
+    textarea[aria-invalid="true"]{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+    <!-- Timeline -->
+  <section class="timeline" style="margin-top:14px;" aria-label="CV builder steps">
+  <a class="tl-link tl-item done" href="step1-personal.html">
+    <div class="tl-dot">1</div>
+    <div class="tl-copy"><b>Personal Information</b><small>Full name, email, phone, location, LinkedIn.</small></div>
+  </a>
+  <a class="tl-link tl-item done" href="step2-summary.html">
+    <div class="tl-dot">2</div>
+    <div class="tl-copy"><b>Professional Summary</b><small>2–4 lines highlighting strengths and goals.</small></div>
+  </a>
+  <a class="tl-link tl-item done" href="step3-experience.html">
+    <div class="tl-dot">3</div>
+    <div class="tl-copy"><b>Work & Experience</b><small>Roles, internships, achievements.</small></div>
+  </a>
+  <div class="tl-item current" aria-current="step">
+    <div class="tl-dot">4</div>
+    <div class="tl-copy"><b>Professional Certificates</b><small>Add certifications with issuer, year, and expiry date.</small></div>
+  </div>
+  <a class="tl-link tl-item" href="step5-skills.html">
+    <div class="tl-dot">5</div>
+    <div class="tl-copy"><b>Skills & Lang</b><small>Tech, soft, languages.</small></div>
+  </a>
+  <a class="tl-link tl-item" href="step6-design.html">
+    <div class="tl-dot">6</div>
+    <div class="tl-copy"><b>Design</b><small>Choose template & theme.</small></div>
+  </a>
+</section>
+
+
+    <!-- Certificates form -->
+    <section class="form-card" style="margin-top:22px;" aria-label="Certificates form">
+      <h1 id="page-title" style="margin:0 0 8px;">Step 4 — Professional Certificates</h1>
+      <p class="hint">Add certificates like Security+, CCNA, AWS, etc. Include issuer, year, and expiry if applicable.</p>
+
+      <form id="certForm" novalidate>
+        <label for="c_name">Certificate</label>
+        <input id="c_name" type="text" placeholder="e.g., CompTIA Security+ (SY0-701)" required>
+        <div class="error" id="err_name">Certificate name is required.</div>
+
+        <div class="row">
+          <div>
+            <label for="c_org">Issuer</label>
+            <input id="c_org" type="text" placeholder="e.g., CompTIA">
+          </div>
+          <div>
+            <label for="c_year">Year Issued</label>
+            <input id="c_year" type="number" min="1900" max="2100" placeholder="2025">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="c_expiry">Expiry Date (optional)</label>
+            <input id="c_expiry" type="month" placeholder="mm/yyyy">
+          </div>
+          <div>
+            <label for="c_id">Credential ID (optional)</label>
+            <input id="c_id" type="text" placeholder="e.g., ABCD-1234">
+          </div>
+        </div>
+
+        <label for="c_url">Credential URL (optional)</label>
+        <input id="c_url" type="url" placeholder="https://...">
+
+        <div class="actions">
+          <a class="btn-secondary" href="step3-experience.html">← Back to Step 3</a>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-line" type="button" id="addMore">＋ Add certificate</button>
+            <button class="btn-primary" type="submit" id="saveFinish">Save & continue</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- List -->
+      <div id="certList" class="cert-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <script>
+    (function(){
+      const storeKey = 'cvsenior-step4-cert';
+      const builderKey = 'cvsenior-builder';
+      const $ = s => document.querySelector(s);
+      const listEl = $('#certList');
+
+      let list = [];
+      try{
+        const saved = JSON.parse(localStorage.getItem(storeKey) || '[]');
+        if(Array.isArray(saved)) list = saved;
+      }catch{}
+
+      function esc(s){return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[m]));}
+
+      function render(){
+        listEl.innerHTML = '';
+        if(!list.length){
+          listEl.innerHTML = '<div class="hint">No certificates added yet.</div>';
+          return;
+        }
+        list.forEach((x,i)=>{
+          const row = document.createElement('div');
+          row.className = 'cert-item';
+          const meta = [x.org, x.year, x.expiry ? ('Exp: '+x.expiry) : ''].filter(Boolean).join(' • ');
+          row.innerHTML = `
+            <div style="flex:1">
+              <div class="cert-head">${esc(x.name||'')}</div>
+              <div class="hint">${esc(meta)}</div>
+              ${x.id? `<div class="hint">ID: ${esc(x.id)}</div>`:''}
+              ${x.url? `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">View credential</a>`:''}
+            </div>
+            <div class="cert-actions">
+              <button class="btn-line" data-del="${i}" type="button" title="Remove">🗑 Remove</button>
+            </div>
+          `;
+          listEl.appendChild(row);
+        });
+        listEl.querySelectorAll('[data-del]').forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            const idx = +btn.getAttribute('data-del');
+            list.splice(idx,1);
+            persist();
+            render();
+          });
+        });
+      }
+
+      function persist(){
+        localStorage.setItem(storeKey, JSON.stringify(list));
+        try{
+          const state = JSON.parse(localStorage.getItem(builderKey) || '{}');
+          state.sections ??= {};
+          state.sections.cert = list.slice();
+          localStorage.setItem(builderKey, JSON.stringify(state));
+        }catch{}
+      }
+
+      function getForm(){
+        return {
+          name: $('#c_name').value.trim(),
+          org:  $('#c_org').value.trim(),
+          year: $('#c_year').value.trim(),
+          expiry: $('#c_expiry').value.trim(),
+          id:   $('#c_id').value.trim(),
+          url:  $('#c_url').value.trim()
+        };
+      }
+
+      function clearForm(){
+        ['c_name','c_org','c_year','c_expiry','c_id','c_url'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+      }
+
+      function validate(){
+        const name = $('#c_name');
+        const err = $('#err_name');
+        if(!name.value.trim()){
+          name.setAttribute('aria-invalid','true');
+          err.style.display='block';
+          return false;
+        }
+        name.removeAttribute('aria-invalid'); err.style.display='none';
+        return true;
+      }
+
+      $('#addMore').addEventListener('click', ()=>{
+        if(!validate()) return;
+        list.unshift(getForm());
+        persist();
+        render();
+        clearForm();
+        window.scrollTo({ top: listEl.offsetTop - 80, behavior:'smooth' });
+      });
+
+      $('#certForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const cur = getForm();
+        const anyFilled = Object.values(cur).some(v => (v||'').toString().trim() !== '');
+        if(anyFilled){
+          if(!validate()) return;
+          list.unshift(cur);
+          persist();
+        } else { persist(); }
+        window.location.href = 'step5-skills.html';
+      });
+
+      render();
+    })();
+  </script>
+  <script>
+(function(){
+  const tl = document.querySelector('section.timeline');
+  if(!tl || tl.dataset.upgraded) return;
+  tl.dataset.upgraded = 'true';
+
+  const steps = [
+    {n:1, label:'Personal Info',    sub:'Contact & profile.',          href:'step1-personal.html', done:true},
+    {n:2, label:'Summary',          sub:'2–4 lines.',                  href:'step2-summary.html',  done:true},
+    {n:3, label:'Experience',       sub:'Roles & impact.',             href:'step3-experience.html', done:true},
+    {n:4, label:'Certificates',     sub:'Issuer & expiry.',            current:true},
+    {n:5, label:'Skills & Lang',    sub:'Tech, soft, languages.'},
+    {n:6, label:'Design',           sub:'Choose template & theme.'},
+  ];
+
+  tl.innerHTML = steps.map(s=>{
+    const cls = `tl-item${s.done?' done':''}${s.current?' current':''}`;
+    if(s.href){
+      return `<a class="tl-link ${cls}" href="${s.href}">
+                <div class="tl-dot" aria-hidden="true">${s.n}</div>
+                <div class="tl-copy"><b>${s.label}</b><small>${s.sub}</small></div>
+              </a>`;
+    }
+    return `<div class="${cls}" ${s.current?'aria-current="step"':''}>
+              <div class="tl-dot" aria-hidden="true">${s.n}</div>
+              <div class="tl-copy"><b>${s.label}</b><small>${s.sub}</small></div>
+            </div>`;
+  }).join('');
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Step 6: Choose Design</title>
+
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <style>
+    :root {
+      --focus: 0 0 0 3px rgba(124,58,237,.25);
+    }
+
+    /* ===== Timeline (6 steps, no connecting lines) ===== */
+    .timeline{
+      background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+      padding:16px 18px;display:grid;grid-template-columns:repeat(6,1fr);
+      gap:22px;position:relative;overflow:hidden;
+    }
+    .timeline::before{display:none;}
+    .tl-item{position:relative;z-index:1;display:grid;grid-template-columns:32px 1fr;column-gap:12px;align-items:start}
+    .tl-dot{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-weight:800;color:#fff;background:#cbd5e1;box-shadow:0 6px 14px rgba(2,6,23,.08)}
+    .tl-item.done .tl-dot,.tl-item.current .tl-dot{background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 10px 22px rgba(124,58,237,.28)}
+    .tl-copy b{display:block;margin:0 0 2px}
+    .tl-copy small{display:block;color:var(--muted);line-height:1.25}
+    .tl-link{text-decoration:none;color:inherit}
+    .tl-link:hover{text-decoration:none}
+    .timeline b,.timeline small,.tl-link{text-decoration:none!important}
+    @media(max-width:1100px){.timeline{grid-template-columns:1fr 1fr}}
+
+    /* ===== Design chooser ===== */
+    .form-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px}
+    .grid-templates{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:16px}
+    @media(max-width:1000px){.grid-templates{grid-template-columns:1fr}}
+
+    .card{
+      border:1px solid #e5e7eb;border-radius:16px;background:#fff;overflow:hidden;
+      cursor:pointer;transition:.2s ease; position:relative; text-align:left;
+    }
+    .card:hover{box-shadow:0 8px 24px rgba(2,6,23,.08);transform:translateY(-2px)}
+    .card.selected{outline:3px solid var(--brand); box-shadow:0 8px 28px rgba(124,58,237,.25)}
+    .card:focus-visible{box-shadow:var(--focus)}
+    .card-head{padding:12px 14px;border-bottom:1px solid #eef2f7;font-weight:800}
+    .card-body{padding:12px 14px}
+    .thumb{background:#f8fafc;border:1px solid #eef2f7;border-radius:10px;display:grid;place-items:center;height:220px}
+    .badge{position:absolute;top:10px;left:10px;background:rgba(124,58,237,.1);color:var(--brand);font-weight:800;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid rgba(124,58,237,.25)}
+    .mini{font-size:12px;color:var(--muted)}
+
+    .controls{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;margin-top:18px}
+    @media(max-width:900px){.controls{grid-template-columns:1fr}}
+    label{font-weight:700;display:block;margin:8px 0 6px}
+    input,select{width:100%;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px;font:inherit}
+
+    .actions{display:flex;justify-content:space-between;margin-top:18px;gap:10px;flex-wrap:wrap}
+    .btn-secondary{padding:10px 14px;border:1px solid #e5e7eb;background:#fff;border-radius:12px;font-weight:700;color:var(--brand);cursor:pointer;display:inline-block;text-decoration:none}
+    .btn-secondary:hover{text-decoration:none}
+
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+	
+    /* ----------------------------------------------------------------------
+       Transparent "Back to site" chip button placed in the header area
+       ---------------------------------------------------------------------- */
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+
+    /* Validation error message for summary textarea (hidden by default). */
+    .error{color:#ef4444;font-size:13px;margin-top:6px;display:none}
+
+    /* When invalid, add a red border + subtle red focus ring. */
+    textarea[aria-invalid="true"]{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+	
+	/* Make Accent Color input match selects perfectly */
+.color-box {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  height: 44px; /* same as select */
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 0;
+}
+
+/* Remove inner browser padding and set same inner swatch look */
+.color-box::-webkit-color-swatch-wrapper {
+  padding: 4px;
+  border-radius: 10px;
+}
+.color-box::-webkit-color-swatch {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+.color-box::-moz-color-swatch {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+/* Hover & focus behavior identical to selects */
+.color-box:hover {
+  border-color: var(--brand);
+}
+.color-box:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25);
+}
+
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+    <!-- Timeline -->
+    <section class="timeline" style="margin-top:14px;">
+      <a class="tl-link tl-item done" href="step1-personal.html"><div class="tl-dot">1</div><div class="tl-copy"><b>Personal Info</b><small>Contact & profile.</small></div></a>
+      <a class="tl-link tl-item done" href="step2-summary.html"><div class="tl-dot">2</div><div class="tl-copy"><b>Summary</b><small>2–4 lines.</small></div></a>
+      <a class="tl-link tl-item done" href="step3-experience.html"><div class="tl-dot">3</div><div class="tl-copy"><b>Experience</b><small>Roles & impact.</small></div></a>
+      <a class="tl-link tl-item done" href="step4-certificates.html"><div class="tl-dot">4</div><div class="tl-copy"><b>Certificates</b><small>Issuer & expiry.</small></div></a>
+      <a class="tl-link tl-item done" href="step5-skills.html"><div class="tl-dot">5</div><div class="tl-copy"><b>Skills & Lang</b><small>Tech, soft, languages.</small></div></a>
+      <div class="tl-item current" aria-current="step"><div class="tl-dot">6</div><div class="tl-copy"><b>Design</b><small>Choose template & theme.</small></div></div>
+    </section>
+
+    <!-- Design chooser -->
+    <section class="form-card" style="margin-top:22px;" aria-label="Choose design">
+      <h1 id="page-title" style="margin:0 0 8px;">Step 6 — Choose CV Design</h1>
+      <p class="mini">Pick a template, accent color, and font. This updates your builder settings.</p>
+
+      <!-- Templates -->
+      <div class="grid-templates" id="templateGrid" role="listbox" aria-label="CV templates"></div>
+
+      <!-- Controls -->
+      <div class="controls" aria-label="Design controls">
+        <div>
+          <label for="accent">Accent Color</label>
+		  <input id="accent" type="color" value="#7c3aed" class="color-box">
+          <small id="accentHelp" class="mini">Updates thumbnails and saved theme.</small>
+
+        </div>
+        <div>
+          <label for="fontSel">Font</label>
+          <select id="fontSel">
+            <option>Inter</option>
+            <option selected>Cairo</option>
+            <option>Roboto</option>
+            <option>Poppins</option>
+            <option>Source Sans 3</option>
+          </select>
+        </div>
+        <div>
+          <label for="sizeSel">Page Size</label>
+          <select id="sizeSel">
+            <option value="A4" selected>A4</option>
+            <option value="Letter">US Letter</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn-secondary" href="step5-skills.html">← Back to Step 5</a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn-primary" id="saveNext">Save & Continue</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <script>
+    (function(){
+      const storeKey   = 'cvsenior-step6-design';
+      const builderKey = 'cvsenior-builder';
+
+      const $ = s => document.querySelector(s);
+      const grid   = $('#templateGrid');
+      const accent = $('#accent');
+      const fontSel= $('#fontSel');
+      const sizeSel= $('#sizeSel');
+
+      // Two templates only
+      const templates = [
+        { id:'modern',  name:'Modern',  desc:'Two-column: main + sidebar.', badge:'Popular' },
+        { id:'classic', name:'Classic', desc:'Single column with strong headings.' }
+      ];
+
+      // Font loader (adds/removes Google stylesheet tag)
+      function loadGoogleFont(family){
+        const id = 'dyn-font';
+        const existed = document.getElementById(id);
+        if (existed) existed.remove();
+        const map = {
+          'Inter': 'Inter:wght@400;600;700',
+          'Cairo': 'Cairo:wght@400;600;700',
+          'Roboto': 'Roboto:wght@400;500;700',
+          'Poppins': 'Poppins:wght@400;600;700',
+          'Source Sans 3': 'Source+Sans+3:wght@400;600;700'
+        };
+        const fam = map[family];
+        if(!fam) return;
+        const link = document.createElement('link');
+        link.id='dyn-font';
+        link.rel='stylesheet';
+        link.href=`https://fonts.googleapis.com/css2?family=${fam}&display=swap`;
+        document.head.appendChild(link);
+      }
+
+      // SVG thumbnail for 2 templates
+      function svgThumb(id, color, fontFamily){
+        const c = color || '#7c3aed';
+        const hRuleModern = `
+          <rect x="16" y="96" width="170" height="10" rx="4" fill="${c}" opacity="0.85"/>
+          <rect x="16" y="114" width="160" height="8" rx="4" fill="#e8ecf3"/>
+          <rect x="16" y="130" width="150" height="8" rx="4" fill="#e8ecf3"/>
+          <rect x="210" y="96" width="170" height="10" rx="4" fill="${c}" opacity="0.85"/>
+          <rect x="210" y="114" width="160" height="8" rx="4" fill="#e8ecf3"/>
+          <rect x="210" y="130" width="150" height="8" rx="4" fill="#e8ecf3"/>
+        `;
+        const hRuleClassic = `
+          <rect x="16" y="96" width="368" height="10" rx="4" fill="${c}" opacity="0.85"/>
+          <rect x="16" y="116" width="360" height="8" rx="4" fill="#e8ecf3"/>
+          <rect x="16" y="132" width="340" height="8" rx="4" fill="#e8ecf3"/>
+          <rect x="16" y="148" width="330" height="8" rx="4" fill="#e8ecf3"/>
+        `;
+        return `
+          <svg width="100%" height="100%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .h { font: 700 12px '${fontFamily}', sans-serif; fill:#0f172a }
+              .t { font: 400 9px '${fontFamily}', sans-serif; fill:#334155 }
+            </style>
+            <rect width="400" height="220" rx="12" fill="#ffffff"/>
+            <rect x="16" y="18" width="140" height="22" rx="4" fill="${c}" opacity="0.95"/>
+            <text x="20" y="34" class="h">Header / Name</text>
+            <rect x="16" y="52" width="240" height="8" rx="4" fill="#e8ecf3"/>
+            <rect x="16" y="68" width="200" height="8" rx="4" fill="#e8ecf3"/>
+            ${id==='modern' ? hRuleModern : hRuleClassic}
+          </svg>
+        `;
+      }
+
+      // Load saved selection (with sane defaults)
+      let design = { template:'modern', color:'#7c3aed', font:'Cairo', size:'A4' };
+      try {
+        const saved = JSON.parse(localStorage.getItem(storeKey) || '{}');
+        if (saved && (saved.template || saved.color || saved.font || saved.size)) {
+          design = { ...design, ...saved };
+        }
+      } catch {}
+
+      // Render cards
+      function renderCards(){
+        grid.innerHTML = '';
+        grid.setAttribute('aria-activedescendant', `tpl-${design.template}`);
+        templates.forEach((t, idx)=>{
+          const card = document.createElement('button');
+          card.type = 'button';
+          card.className = 'card' + (design.template === t.id ? ' selected':'' );
+          card.setAttribute('role','option');
+          card.setAttribute('aria-selected', design.template === t.id ? 'true':'false');
+          card.id = `tpl-${t.id}`;
+          card.setAttribute('tabindex', design.template === t.id ? '0' : '-1');
+          card.setAttribute('data-id', t.id);
+          card.innerHTML = `
+            ${t.badge ? `<span class="badge" aria-hidden="true">${t.badge}</span>`:''}
+            <div class="card-head">${t.name}</div>
+            <div class="card-body">
+              <div class="thumb">${svgThumb(t.id, design.color, design.font)}</div>
+              <div class="mini" style="margin-top:8px">${t.desc}</div>
+            </div>
+          `;
+          const selectThis = ()=>{
+            design.template = t.id;
+            persist(); renderCards();
+          };
+          card.addEventListener('click', selectThis);
+          card.addEventListener('keydown', (e)=>{
+            if(e.key==='Enter' || e.key===' '){ e.preventDefault(); selectThis(); }
+          });
+          grid.appendChild(card);
+        });
+      }
+
+      function focusSelectedCard(){
+        const current = grid.querySelector('.card.selected');
+        if(current) current.focus();
+      }
+
+      // Keyboard navigation on the listbox
+      grid.addEventListener('keydown', (e)=>{
+        const cards = Array.from(grid.querySelectorAll('.card'));
+        const currentIdx = cards.findIndex(c => c.classList.contains('selected'));
+        if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){
+          e.preventDefault();
+          const next = cards[(currentIdx + 1) % cards.length];
+          next.focus();
+        } else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){
+          e.preventDefault();
+          const prev = cards[(currentIdx - 1 + cards.length) % cards.length];
+          prev.focus();
+        }
+      });
+
+      function persist(){
+        // Save step 6
+        localStorage.setItem(storeKey, JSON.stringify(design));
+        // Mirror to builder
+        try{
+          const st = JSON.parse(localStorage.getItem(builderKey) || '{}');
+          st.design = {
+            template: design.template,
+            color: design.color,
+            font: design.font,
+            size: design.size
+          };
+          localStorage.setItem(builderKey, JSON.stringify(st));
+        }catch{}
+      }
+
+      // Bind controls
+      accent.value = design.color;
+      fontSel.value = design.font || 'Cairo';
+      sizeSel.value = design.size || 'A4';
+
+      accent.addEventListener('input', ()=>{
+        design.color = accent.value;
+        persist(); renderCards(); // refresh thumbs with new color
+      });
+
+      fontSel.addEventListener('change', ()=>{
+        design.font = fontSel.value;
+        loadGoogleFont(design.font);
+        document.body.style.fontFamily = `'${design.font}', sans-serif`;
+        persist(); renderCards(); // refresh thumbs with new font
+      });
+
+      sizeSel.addEventListener('change', ()=>{
+        design.size = sizeSel.value;
+        persist();
+      });
+
+      // Actions
+      document.getElementById('saveNext').addEventListener('click', ()=>{
+        persist();
+        window.location.href = 'build-cv.html';
+      });
+
+      // Initial render
+      loadGoogleFont(design.font);
+      document.body.style.fontFamily = `'${design.font}', sans-serif`;
+      renderCards();
+      persist(); // ensure builder has something the first time
+      focusSelectedCard();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Terms & Conditions</title>
+
+  <!-- Branding / social -->
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:title" content="Creative Digital CV — Terms & Conditions">
+  <meta property="og:description" content="Terms of use for Creative Digital CV — eligibility, acceptable use, disclaimers, and your rights.">
+  <meta property="og:image" content="icons/preview.png">
+
+  <!-- Font + shared styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Page-specific tweaks -->
+  <style>
+    .header{
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      background: linear-gradient(90deg,#f3e8ff 0%, #a78bfa 50%, #7c3aed 100%);
+      padding:10px 18px;display:flex;align-items:center;gap:18px;justify-content:space-between;
+    }
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;
+      background:rgba(255,255,255,.12);color:#fff;font-weight:700;text-decoration:none;
+      border:1px solid rgba(255,255,255,.3);transition:all .25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+
+    /* Layout */
+    .legal-wrap{display:grid;grid-template-columns:280px 1fr;gap:20px;padding:18px 0}
+    @media(max-width:1000px){.legal-wrap{grid-template-columns:1fr}}
+    aside{
+      background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:18px;position:sticky;top:16px;height:max-content
+    }
+    .toc{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .toc a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid #eef2f7}
+    .toc a:hover,.toc a:focus-visible{box-shadow:var(--ring);text-decoration:none}
+    .content{
+      background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:22px;border:1px solid #eef2f7
+    }
+    .badge{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;background:#eef2ff;border:1px solid #dbe4ff;color:var(--brand);font-weight:800}
+    h1{margin:0 0 10px}
+    h2{margin:18px 0 8px;font-size:20px;border-bottom:2px solid var(--brand);padding-bottom:6px}
+    h3{margin:14px 0 6px;font-size:16px}
+    p{margin:8px 0;color:#0f172a}
+    .muted{color:var(--muted)}
+    .tools{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 16px}
+    .btn-secondary{padding:10px 14px;border:1px solid #e5e7eb;background:#fff;border-radius:12px;font-weight:700;color:var(--brand);text-decoration:none;display:inline-block}
+    .btn-secondary:hover{text-decoration:none}
+    .note{background:#fafbff;border:1px solid #eef2f7;border-radius:12px;padding:12px;margin:10px 0}
+    .list{margin:8px 0 8px 18px}
+    .list li{margin:4px 0}
+    code.k{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:2px 6px}
+	
+	:target {
+  scroll-margin-top: 100px; /* adjust to match your header height */
+}
+html {
+  scroll-behavior: smooth;
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+      <a href="support.html">Support</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+    <section class="legal-wrap" aria-label="Terms and Conditions">
+      <!-- TOC -->
+      <aside aria-label="Table of contents">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <b>On this page</b>
+          <span class="badge">Updated: 06 Nov 2025</span>
+        </div>
+        <ul class="toc">
+          <li><a href="#intro">1. Introduction</a></li>
+          <li><a href="#eligibility">2. Eligibility & Accounts</a></li>
+          <li><a href="#use">3. Acceptable Use</a></li>
+          <li><a href="#content">4. Your Content & License</a></li>
+          <li><a href="#builder">5. CV Builder Data</a></li>
+          <li><a href="#payments">6. Payments & Refunds</a></li>
+          <li><a href="#privacy">7. Privacy & Security</a></li>
+          <li><a href="#thirdparty">8. Third-Party Links</a></li>
+          <li><a href="#ip">9. Intellectual Property</a></li>
+          <li><a href="#warranty">10. Disclaimers</a></li>
+          <li><a href="#liability">11. Limitation of Liability</a></li>
+          <li><a href="#termination">12. Suspension & Termination</a></li>
+          <li><a href="#changes">13. Changes to These Terms</a></li>
+          <li><a href="#law">14. Governing Law</a></li>
+          <li><a href="#contact">15. Contact Us</a></li>
+        </ul>
+        <div class="tools">
+          <a class="btn-secondary" href="javascript:window.print()">Print</a>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <article class="content">
+        <h1 id="page-title">Terms & Conditions</h1>
+        <p class="muted">Welcome to Creative Digital CV. By accessing or using our website and tools, you agree to these Terms. If you do not agree, please do not use the Service.</p>
+
+        <h2 id="intro">1. Introduction</h2>
+        <p>“Service” means the Creative Digital CV website, CV builder, and related pages (including <code class="k">index.html</code>, <code class="k">build-cv.html</code>, and the step pages). “We”, “us”, and “our” refer to the project owners. “You” means the user of the Service.</p>
+
+        <h2 id="eligibility">2. Eligibility & Accounts</h2>
+        <ul class="list">
+          <li>You must be able to form a binding contract to use the Service. If you create an account, you’re responsible for keeping your credentials secure.</li>
+          <li>Provide accurate information and keep it up to date (see <a href="register.html">Register</a> and <a href="login.html">Sign In</a>).</li>
+          <li>Notify us promptly of any unauthorized use of your account.</li>
+        </ul>
+
+        <h2 id="use">3. Acceptable Use</h2>
+        <p>You agree not to misuse the Service. Prohibited activities include (non-exhaustive):</p>
+        <ul class="list">
+          <li>Uploading unlawful, misleading, or infringing content.</li>
+          <li>Attempting to breach, probe, or circumvent security controls.</li>
+          <li>Interfering with normal operation, scraping without permission, or reselling access.</li>
+        </ul>
+
+        <h2 id="content">4. Your Content & License</h2>
+        <p>You retain ownership of CV content you input. To operate the Service (e.g., preview, export), you grant us a worldwide, non-exclusive, royalty-free license to host, process, display, and generate outputs from that content. You represent you have rights to the content you provide.</p>
+
+        <h2 id="builder">5. CV Builder Data</h2>
+        <div class="note">
+          Our builder stores progress locally using your browser’s storage to make the multi-step flow faster (e.g., <code class="k">cvsenior-builder</code> keys). Clearing your browser storage or switching devices may remove local data.
+        </div>
+        <ul class="list">
+          <li>Exports (e.g., print to PDF) are generated on your device.</li>
+          <li>Templates, colors, and fonts are provided “as is”; you’re responsible for final review of the CV.</li>
+        </ul>
+
+        <h2 id="payments">6. Payments & Refunds</h2>
+        <p>If premium features are introduced later, additional terms will apply at checkout, including pricing, billing cycles, and refund eligibility. Unless stated otherwise, fees are non-refundable once a premium export or feature is delivered.</p>
+
+        <h2 id="privacy">7. Privacy & Security</h2>
+        <p>Your privacy is important. See our <a href="privacy.html">Privacy Notice</a> for how we handle data. We take reasonable measures to protect the Service; however, no method of storage or transmission is 100% secure.</p>
+
+        <h2 id="thirdparty">8. Third-Party Links</h2>
+        <p>The Service may include links or sign-in options (e.g., Google/LinkedIn buttons) provided by third parties. We’re not responsible for their content or policies; review their terms and privacy notices.</p>
+
+        <h2 id="ip">9. Intellectual Property</h2>
+        <p>The Service, templates, styles, logos, and design elements are protected by intellectual-property laws. Except for the limited license above, no rights are granted to you in our IP.</p>
+
+        <h2 id="warranty">10. Disclaimers</h2>
+        <p>THE SERVICE IS PROVIDED “AS IS” AND “AS AVAILABLE.” We make no warranties of fitness for a particular purpose, non-infringement, or that the Service will be error-free, uninterrupted, or produce any specific hiring outcome.</p>
+
+        <h2 id="liability">11. Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, we shall not be liable for indirect, incidental, special, consequential, or punitive damages, or any loss of data, revenues, or profits, arising from or related to your use of the Service.</p>
+
+        <h2 id="termination">12. Suspension & Termination</h2>
+        <p>We may suspend or terminate access if you violate these Terms or use the Service in a way that creates risk or potential legal exposure.</p>
+
+        <h2 id="changes">13. Changes to These Terms</h2>
+        <p>We may revise these Terms. Material changes will be indicated by the “Updated” badge above. Continued use after changes means you accept the revised Terms.</p>
+
+        <h2 id="law">14. Governing Law</h2>
+        <p>These Terms are governed by the laws of the Kingdom of Saudi Arabia, without regard to conflict-of-laws principles. Venue for disputes will be the competent courts in Riyadh, KSA.</p>
+
+        <h2 id="contact">15. Contact Us</h2>
+        <p>Questions? Visit <a href="contact.html">Contact</a> or email the project team via the Support page. We aim to respond within a reasonable timeframe.</p>
+      </article>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>
