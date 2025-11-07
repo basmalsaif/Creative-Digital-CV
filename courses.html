@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Courses</title>
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    /* ====== Minimal Helpers (if not already in app.css) ====== */
+    .grid-cards { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+    .card-select { text-align:left; cursor:pointer; }
+    .stepper { display:flex; gap:12px; list-style:none; padding:12px; margin:0; flex-wrap:wrap;}
+    .stepper li { padding:10px 14px; border:1px solid #ddd; border-radius:999px; font-weight:700; }
+    .stepper li.active, .stepper li[aria-current="step"] { background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; }
+    .roadmap { display:grid; grid-template-columns:220px 1fr; gap:14px; }
+    @media (max-width:900px){ .roadmap{grid-template-columns:1fr;} }
+    .timeline { display:flex; gap:10px; align-items:center; padding:6px 0; overflow:auto; }
+    .timeline .dot { width:36px; height:36px; border-radius:50%; display:grid; place-items:center; border:2px solid #e5e7eb; background:#fff; font-weight:800; }
+    .roadmap .cards { display:grid; gap:12px; }
+    .drawer { position:fixed; inset:0; display:none; z-index:60; }
+    .drawer.open { display:block; }
+    .drawer__scrim { position:absolute; inset:0; background:rgba(0,0,0,.35); }
+    .drawer__panel { position:absolute; top:0; right:0; width:min(420px,90vw); height:100%; background:#fff; box-shadow:-12px 0 30px rgba(0,0,0,.15); display:flex; flex-direction:column; outline:0; }
+    .drawer__header, .drawer__footer { padding:12px; border-bottom:1px solid #eee; }
+    .drawer__footer { border-top:1px solid #eee; border-bottom:0; margin-top:auto; }
+    .drawer__body { padding:12px; overflow:auto; }
+    .plan-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .shimmer .shimmer-line { height:14px; width:40%; background:linear-gradient(90deg,#f2f2f2,#e9e9e9,#f2f2f2); background-size:200% 100%; animation:sh 1s infinite linear; border-radius:8px; margin:6px 0 12px; }
+    .shimmer .shimmer-cards { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }
+    .shimmer .shimmer-card { height:84px; border-radius:12px; background:linear-gradient(90deg,#f2f2f2,#e9e9e9,#f2f2f2); background-size:200% 100%; animation:sh 1s infinite linear; }
+    @keyframes sh { 0%{background-position:200% 0}100%{background-position:-200% 0}}
+  </style>
+</head>
+<body>
+  <!-- ===== Shared Header ===== -->
+  <header class="header">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+    <nav class="nav" id="mainnav">
+      <a href="index.html">Dashboard</a>
+      <a href="build-cv.html">Build CV</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="courses.html">Courses</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </header>
+  <!-- ===== End Header ===== -->
+
+  <main id="main" class="wrap">
+    <section class="hero card" style="margin-top:14px">
+      <h1>Choose your path</h1>
+      <p class="muted">Guided flow: Major → Branch → Roadmap.</p>
+    </section>
+
+    <nav class="card" style="margin-top:14px">
+      <ol class="stepper" id="coursesStepper">
+        <li id="stepDot1" aria-current="step">Step 1 – Major</li>
+        <li id="stepDot2">Step 2 – Branch</li>
+        <li id="stepDot3">Step 3 – Roadmap</li>
+      </ol>
+    </nav>
+
+    <section id="coursesStage" class="card panel" aria-live="polite" style="margin-top:14px"></section>
+
+    <div class="controls" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+      <button id="btnBack" class="btn-secondary">← Back</button>
+      <button id="btnReset" class="btn-secondary">Reset</button>
+    </div>
+  </main>
+
+  <!-- Drawer -->
+  <aside id="planDrawer" class="drawer" aria-hidden="true" role="dialog">
+    <div class="drawer__scrim" data-close-drawer></div>
+    <div class="drawer__panel" tabindex="-1">
+      <header class="drawer__header">
+        <h2>My Learning Plan</h2>
+        <button id="drawerClose" class="icon-btn" aria-label="Close">✕</button>
+      </header>
+      <div class="drawer__body">
+        <div id="planItems" class="list"></div>
+        <div class="totals"><strong>Total hours:</strong> <span id="planTotal">0</span> hrs</div>
+      </div>
+      <footer class="drawer__footer">
+        <button id="btnDownloadPlan" class="btn-primary">Download Plan (JSON)</button>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta</div>
+      <div class="foot-links">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <!-- Initialize -->
+  <script>
+    (function(){
+      const nav=document.querySelectorAll('.nav a');
+      nav.forEach(a=>{
+        if(a.href.includes('courses.html')){
+          a.classList.add('active');
+          a.setAttribute('aria-current','page');
+        }
+      });
+      if(window.CoursesFlow && typeof window.CoursesFlow.init==='function'){
+        window.CoursesFlow.init({
+          stageId:'coursesStage',
+          stepperIds:['stepDot1','stepDot2','stepDot3'],
+          backId:'btnBack',
+          resetId:'btnReset',
+          drawerId:'planDrawer',
+          drawerCloseId:'drawerClose',
+          drawerScrimAttr:'data-close-drawer',
+          planListId:'planItems',
+          planTotalId:'planTotal',
+          downloadBtnId:'btnDownloadPlan'
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
