@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Previous CVs</title>
+
+  <!-- Branding / social -->
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:title" content="Creative Digital CV — Previous CVs">
+  <meta property="og:description" content="Browse, search, and manage your saved CVs.">
+  <meta property="og:image" content="icons/preview.png">
+
+  <!-- Fonts + shared styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Page-scoped styles -->
+  <style>
+    .header{
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      background: linear-gradient(90deg,#f3e8ff 0%, #a78bfa 50%, #7c3aed 100%);
+      padding:10px 18px;display:flex;align-items:center;gap:18px;justify-content:space-between;
+    }
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+    main{flex:1}
+
+    /* Page */
+    .wrap{max-width:1200px;margin:0 auto;padding:18px 18px 60px}
+    .page-head{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;margin:10px 0 8px}
+    .tools{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-secondary{padding:10px 14px;border:1px solid #e5e7eb;background:#fff;border-radius:12px;font-weight:700;color:var(--brand);text-decoration:none;display:inline-block}
+    .btn-secondary:hover{text-decoration:none}
+    .mini{color:var(--muted);font-size:13px}
+
+    /* Controls */
+    .controls{display:grid;grid-template-columns:1fr 180px 160px;gap:10px;margin:14px 0}
+    @media (max-width:900px){.controls{grid-template-columns:1fr}}
+    .input,.select{width:100%;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px;font:inherit}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:12px}
+    @media (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:720px){.grid{grid-template-columns:1fr}}
+
+    .card{
+      background:#fff; border:1px solid #e8ecf3; border-radius:16px; overflow:hidden;
+      box-shadow: 0 10px 24px rgba(16,24,40,.04);
+      display:flex; flex-direction:column;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(16,24,40,.08); }
+    .thumb{height:160px;background:#f8fafc;border-bottom:1px solid #eef2f7;display:grid;place-items:center;position:relative}
+    .badge{position:absolute;top:10px;left:10px;background:rgba(124,58,237,.1);color:var(--brand);font-weight:800;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid rgba(124,58,237,.25)}
+    .t-svg{width:100%;height:100%;object-fit:cover}
+
+    .body{padding:14px}
+    .title{font-weight:800;margin:0 0 4px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:#eef2ff;border:1px solid #dbe4ff}
+
+    .actions{margin-top:auto;padding:12px 14px;border-top:1px solid #eef2f7;display:flex;gap:8px;flex-wrap:wrap}
+    .btn-line{padding:8px 12px;border:1px dashed #cbd5e1;background:#fff;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn-primary.small{padding:8px 12px}
+
+    /* Empty state */
+    .empty{background:var(--card);border:1px dashed #cbd5e1;border-radius:16px;padding:28px;text-align:center}
+    .empty p{margin:6px 0 0;color:var(--muted)}
+    .danger{color:#ef4444}
+    .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="cv-templates.html">CV Templates</a>
+      <a href="career-path.html">Career Path</a>
+      <a href="support.html">Support</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="wrap" role="main" aria-labelledby="page-title">
+    <div class="page-head">
+      <div>
+        <h1 id="page-title" style="margin:0">Previous CVs</h1>
+        <div class="mini">Browse, search, and manage your saved CVs on this device.</div>
+      </div>
+      <div class="tools">
+        <a class="btn-secondary" href="step1-personal.html">＋ New CV</a>
+        <button class="btn-secondary" id="migrateBtn" type="button" title="Save current draft">Save current draft</button>
+        <label class="btn-secondary" for="importFile" style="cursor:pointer">⬆ Import JSON</label>
+        <input id="importFile" type="file" accept="application/json" class="sr-only" />
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <section class="controls" aria-label="Filters and sorting">
+      <input id="q" class="input" type="search" placeholder="Search by name, role, skills…" aria-label="Search">
+      <select id="sort" class="select" aria-label="Sort">
+        <option value="updated-desc" selected>Recently updated</option>
+        <option value="updated-asc">Oldest first</option>
+        <option value="name-asc">Name (A→Z)</option>
+        <option value="name-desc">Name (Z→A)</option>
+      </select>
+      <select id="template" class="select" aria-label="Filter by template">
+        <option value="">All templates</option>
+        <option value="modern">Modern</option>
+        <option value="classic">Classic</option>
+        <option value="compact">Compact</option>
+      </select>
+    </section>
+
+    <!-- Grid -->
+    <section id="grid" class="grid" aria-live="polite"></section>
+
+    <!-- Empty -->
+    <section id="empty" class="empty" style="display:none" aria-label="No saved CVs">
+      <img src="icons/empty.png" alt="" width="54" height="54" />
+      <h3 style="margin:10px 0 0">No saved CVs yet</h3>
+      <p>Click <b>New CV</b> to start, or <b>Save current draft</b> to capture your existing builder data.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    (function(){
+      const LIB_KEY = 'cvsenior-library';
+      const BUILDER_KEY = 'cvsenior-builder';
+
+      const $ = s => document.querySelector(s);
+      const grid = $('#grid');
+      const empty = $('#empty');
+
+      const q = $('#q');
+      const sortSel = $('#sort');
+      const tplSel = $('#template');
+      const migrateBtn = $('#migrateBtn');
+      const importFile = $('#importFile');
+
+      // Helpers
+      const nowISO = ()=> new Date().toISOString();
+      const fmtDate = iso => {
+        try { return new Date(iso).toLocaleString(); } catch { return ''; }
+      };
+      const uid = () => Math.random().toString(36).slice(2,9);
+
+      function readLib(){
+        try {
+          const raw = JSON.parse(localStorage.getItem(LIB_KEY) || '[]');
+          return Array.isArray(raw) ? raw : [];
+        } catch { return []; }
+      }
+      function writeLib(arr){
+        localStorage.setItem(LIB_KEY, JSON.stringify(arr));
+      }
+
+      function titleFromData(d){
+        const n = d?.sections?.personal?.fullName || d?.personal?.fullName || 'Untitled CV';
+        const m = d?.sections?.personal?.major || d?.personal?.major || '';
+        return {name: n, subtitle: m};
+      }
+      function skillsFromData(d){
+        const a = d?.sections?.skills || d?.skills || [];
+        return Array.isArray(a) ? a : [];
+      }
+      function templateOf(d){
+        return d?.design?.template || 'modern';
+      }
+      function colorOf(d){
+        return d?.design?.color || '#7c3aed';
+      }
+
+      function svgThumb(tid, color){
+        const c = color || '#7c3aed';
+        return `
+          <svg class="t-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Template thumbnail">
+            <rect width="400" height="160" rx="12" fill="#ffffff"/>
+            <rect x="16" y="16" width="120" height="14" rx="4" fill="${c}" opacity="0.9"/>
+            <rect x="16" y="38" width="260" height="8" rx="4" fill="#e8ecf3"/>
+            <rect x="16" y="52" width="200" height="8" rx="4" fill="#e8ecf3"/>
+            ${
+              tid==='classic' ? `
+                <rect x="16" y="76" width="360" height="10" rx="4" fill="${c}" opacity="0.8"/>
+                <rect x="16" y="92" width="340" height="8" rx="4" fill="#e8ecf3"/>
+                <rect x="16" y="106" width="330" height="8" rx="4" fill="#e8ecf3"/>`
+              : tid==='compact' ? `
+                <rect x="16" y="76" width="110" height="10" rx="4" fill="${c}" opacity="0.8"/>
+                <rect x="16" y="92" width="100" height="8" rx="4" fill="#e8ecf3"/>
+                <rect x="146" y="76" width="110" height="10" rx="4" fill="${c}" opacity="0.8"/>
+                <rect x="146" y="92" width="100" height="8" rx="4" fill="#e8ecf3"/>
+                <rect x="276" y="76" width="108" height="10" rx="4" fill="${c}" opacity="0.8"/>
+                <rect x="276" y="92" width="98" height="8" rx="4" fill="#e8ecf3"/>`
+              : `
+                <rect x="16" y="76" width="170" height="10" rx="4" fill="${c}" opacity="0.8"/>
+                <rect x="16" y="92" width="160" height="8" rx="4" fill="#e8ecf3"/>
+                <rect x="210" y="76" width="170" height="10" rx="4" fill="${c}" opacity="0.8"/>
+                <rect x="210" y="92" width="160" height="8" rx="4" fill="#e8ecf3"/>`
+            }
+          </svg>
+        `;
+      }
+
+      function render(){
+        const term = q.value.trim().toLowerCase();
+        const sort = sortSel.value;
+        const tpl = tplSel.value;
+
+        let rows = readLib();
+
+        // Filter by template
+        if(tpl) rows = rows.filter(x => templateOf(x.data) === tpl);
+
+        // Search
+        if(term){
+          rows = rows.filter(x=>{
+            const {name, subtitle} = titleFromData(x.data);
+            const skillText = skillsFromData(x.data).join(' ').toLowerCase();
+            return (name+' '+subtitle).toLowerCase().includes(term) || skillText.includes(term);
+          });
+        }
+
+        // Sort
+        rows.sort((a,b)=>{
+          if(sort==='updated-asc') return (a.updatedAt||'').localeCompare(b.updatedAt||'');
+          if(sort==='name-asc'){
+            const an = titleFromData(a.data).name.toLowerCase();
+            const bn = titleFromData(b.data).name.toLowerCase();
+            return an.localeCompare(bn);
+          }
+          if(sort==='name-desc'){
+            const an = titleFromData(a.data).name.toLowerCase();
+            const bn = titleFromData(b.data).name.toLowerCase();
+            return bn.localeCompare(an);
+          }
+          // default updated-desc
+          return (b.updatedAt||'').localeCompare(a.updatedAt||'');
+        });
+
+        grid.innerHTML = '';
+        if(!rows.length){
+          empty.style.display = 'block';
+          return;
+        }
+        empty.style.display = 'none';
+
+        rows.forEach(row=>{
+          const {name, subtitle} = titleFromData(row.data);
+          const t = templateOf(row.data);
+          const c = colorOf(row.data);
+          const skills = skillsFromData(row.data).slice(0,4);
+
+          const card = document.createElement('article');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="thumb">
+              <span class="badge">${t[0].toUpperCase()+t.slice(1)}</span>
+              ${svgThumb(t, c)}
+            </div>
+            <div class="body">
+              <h3 class="title">${escapeHtml(name)}</h3>
+              <div class="meta">
+                <span>Updated: ${escapeHtml(fmtDate(row.updatedAt))}</span>
+                ${subtitle ? `<span>• ${escapeHtml(subtitle)}</span>`:''}
+              </div>
+              <div class="tags">
+                ${skills.map(s=>`<span class="tag">${escapeHtml(s)}</span>`).join('')}
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn-primary small" data-act="continue" data-id="${row.id}">Continue Editing</button>
+              <a class="btn-secondary" data-act="preview" data-id="${row.id}" href="#">Preview</a>
+              <button class="btn-line" data-act="export" data-id="${row.id}">Export JSON</button>
+              <button class="btn-line danger" data-act="delete" data-id="${row.id}" title="Delete">Delete</button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        // Bind actions
+        grid.querySelectorAll('[data-act]').forEach(el=>{
+          el.addEventListener('click', (e)=>{
+            e.preventDefault();
+            const id = el.getAttribute('data-id');
+            const act = el.getAttribute('data-act');
+            if(act==='continue') loadIntoBuilder(id, /*goTo*/ 'step6-design.html');
+            if(act==='preview')  loadIntoBuilder(id, /*goTo*/ 'build-cv.html', /*newTab*/ true);
+            if(act==='export')   exportItem(id);
+            if(act==='delete')   removeItem(id);
+          });
+        });
+      }
+
+      function escapeHtml(s){return (''+s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[m]));}
+
+      function loadIntoBuilder(id, goTo, newTab=false){
+        const rows = readLib();
+        const row = rows.find(r=>r.id===id);
+        if(!row) return;
+        localStorage.setItem(BUILDER_KEY, JSON.stringify(row.data || {}));
+        // also gently update 'cvsenior-stepX-*' if needed — we keep it simple: builder page reads from BUILDER_KEY
+        if(newTab){ window.open(goTo, '_blank', 'noopener'); } else { window.location.href = goTo; }
+      }
+
+      function exportItem(id){
+        const rows = readLib();
+        const row = rows.find(r=>r.id===id);
+        if(!row) return;
+        const blob = new Blob([JSON.stringify(row.data || {}, null, 2)], {type:'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        const {name} = titleFromData(row.data);
+        a.download = (name || 'cv') + '.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      function removeItem(id){
+        if(!confirm('Delete this CV permanently from this device?')) return;
+        const rows = readLib().filter(r=>r.id!==id);
+        writeLib(rows);
+        render();
+      }
+
+      // Import
+      importFile.addEventListener('change', ()=>{
+        const f = importFile.files[0];
+        if(!f) return;
+        const reader = new FileReader();
+        reader.onload = ()=>{
+          try{
+            const data = JSON.parse(reader.result);
+            // very light sanity check
+            if(typeof data !== 'object') throw new Error('Invalid JSON');
+            const rows = readLib();
+            rows.push({ id: uid(), createdAt: nowISO(), updatedAt: nowISO(), data });
+            writeLib(rows);
+            importFile.value = '';
+            render();
+          }catch(err){
+            alert('Import failed: ' + err.message);
+          }
+        };
+        reader.readAsText(f);
+      });
+
+      // Save current draft (migration helper)
+      migrateBtn.addEventListener('click', ()=>{
+        try{
+          const draft = JSON.parse(localStorage.getItem(BUILDER_KEY) || '{}');
+          if(!draft || !Object.keys(draft).length){
+            alert('No current draft found in the builder.');
+            return;
+          }
+          const rows = readLib();
+          rows.push({ id: uid(), createdAt: nowISO(), updatedAt: nowISO(), data: draft });
+          writeLib(rows);
+          alert('Current draft saved here.');
+          render();
+        }catch{
+          alert('Could not read current draft.');
+        }
+      });
+
+      // Live filters
+      ['input','change'].forEach(ev=>{
+        q.addEventListener(ev, render);
+        sortSel.addEventListener(ev, render);
+        tplSel.addEventListener(ev, render);
+      });
+
+      // Initial render
+      render();
+    })();
+  </script>
+</body>
+</html>

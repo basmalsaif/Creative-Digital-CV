@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Digital CV — Jobs</title>
+
+  <!-- Branding / social -->
+  <link rel="icon" href="icons/logo.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta property="og:title" content="Creative Digital CV — Jobs">
+  <meta property="og:description" content="Type a targeted job, pick options, and jump straight to live openings.">
+  <meta property="og:image" content="icons/preview.png">
+
+  <!-- Shared font + styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css" />
+
+  <!-- Page-scoped minimal tweaks only (keeps global system intact) -->
+  <style>
+    :root{
+      --container-max: 880px;
+    }
+    .page{
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 28px 18px 80px;
+    }
+    .hero{
+      margin: 10px 0 20px;
+      text-align: center;
+    }
+    .hero h1{
+      margin: 0 0 6px;
+      font-weight: 900;
+      font-size: 34px;
+      line-height: 1.15;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    /* Card centers on large screens; stacks beautifully on mobile */
+    .search-card{
+      background: var(--card);
+      border: 1px solid #e8ecf3;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin: 0 auto;
+    }
+    @media (min-width: 960px){
+      .search-card{ padding: 26px 28px; }
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media(max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+
+    label{
+      font-weight: 700;
+      display: block;
+      margin: 8px 0 6px;
+    }
+    .input{
+      width: 100%;
+      border: 1px solid #dfe5ef;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      transition: box-shadow .2s ease, border-color .2s ease, background-color .2s ease;
+    }
+    .input:focus{
+      outline: none;
+      border-color: #c4b5fd;
+      box-shadow: 0 0 0 3px rgba(124,58,237,.15);
+    }
+    .hint{ color: var(--muted); font-size: 13px; }
+    .tiny{ font-size: 12px; color: var(--muted); }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      background:#eef2ff; border:1px solid #dbe4ff;
+      font-size:13px; cursor:pointer; user-select:none;
+      transition: transform .12s ease, background-color .2s ease, border-color .2s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); }
+    .chip[aria-pressed="true"]{
+      background:#ede9fe; border-color:#c4b5fd;
+      outline:2px solid rgba(124,58,237,.20)
+    }
+
+    .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px; }
+
+    /* Primary/secondary button polish (leverages global tokens) */
+    .btn-primary, .btn{
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: transform .12s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .btn-primary{ cursor:pointer; }
+    .btn-primary:hover{ transform: translateY(-1px); }
+    .btn:focus-visible, .btn-primary:focus-visible{ outline: none; box-shadow: 0 0 0 3px rgba(124,58,237,.20); }
+
+    .btn-link{
+      font-weight: 700;
+      color: var(--brand);
+      text-decoration: none;
+      padding: 10px 8px;
+      border-radius: 8px;
+      transition: background-color .2s ease, color .2s ease;
+    }
+    .btn-link:hover{ background: rgba(124,58,237,.08); text-decoration: none; }
+
+    /* How-section spacing tightened after removals to keep layout balanced */
+    .how{
+      margin: 22px auto 0;
+      background: #fff;
+      border: 1px solid #e8ecf3;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      max-width: var(--container-max);
+    }
+    .how h2{ margin: 0 0 6px; font-size: 18px; text-align:center; }
+    .how ol{ margin: 8px auto 0; padding: 0 0 0 18px; max-width: 640px; }
+
+    .error{ color:#ef4444; font-size:13px; margin-top:6px; display:none; }
+
+    /* Ensure Jobs is highlighted if global doesn’t handle active state */
+    .nav a[aria-current="page"]{ color: var(--brand); font-weight: 800; }
+
+    /* Subtle page entrance */
+    .search-card, .how, .hero{
+      animation: fadeInUp .28s ease both;
+    }
+    @keyframes fadeInUp{
+      from{ opacity:0; transform: translateY(6px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+	
+	 /* ----------------------------------------------------------------------
+       Transparent "Back to site" chip button placed in the header area
+       ---------------------------------------------------------------------- */
+    .back a{
+      display:inline-block;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.12);
+      color:#fff;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:.25s ease;
+    }
+    .back a:hover,.back a:focus-visible{background:rgba(255,255,255,.22);box-shadow:var(--ring)}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Shared Header -->
+  <header class="header" role="banner">
+    <div class="brand">
+      <img src="icons/logo.png" alt="Creative Digital CV logo" />
+      <span>Creative Digital CV</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainnav">☰</button>
+
+    <nav class="nav" id="mainnav" aria-label="Main">
+      <a href="index.html">Dashboard</a>
+      <a href="build-cv.html">Build CV</a>
+      <a href="support.html">Support</a>
+      <a href="jobs.html" aria-current="page">Jobs</a>
+    </nav>
+
+    <div class="back"><a href="index.html">Back to site</a></div>
+  </header>
+
+  <!-- Main -->
+  <main id="main" class="page" role="main" aria-labelledby="page-title">
+    <header class="hero">
+      <h1 id="page-title">Find Your Next Role</h1>
+      <p>Type a targeted job, pick options, and jump straight to live openings.</p>
+    </header>
+
+    <!-- Focused Search Card (checkboxes, URL preview, and quick picks removed) -->
+    <section class="search-card" aria-label="Jobs search form">
+      <form id="jobsForm" novalidate>
+        <div class="grid" role="group" aria-labelledby="page-title">
+          <div>
+            <label for="job">Targeted Job <span class="tiny">(required)</span></label>
+            <input id="job" class="input" type="text" placeholder="e.g., Cloud Security Architect" required aria-describedby="job_help job_err">
+            <small id="job_help" class="hint">Use specific titles for better matches.</small>
+            <div id="job_err" class="error" role="status" aria-live="polite">Please enter a job title.</div>
+          </div>
+
+          <div>
+            <label for="loc">Location <span class="tiny">(optional)</span></label>
+            <input id="loc" class="input" type="text" placeholder="e.g., Riyadh, Remote" aria-describedby="loc_help">
+            <small id="loc_help" class="hint">Add city/country or write “Remote”.</small>
+          </div>
+        </div>
+
+        <!-- Seniority (single-select chips) -->
+        <div style="margin-top:14px">
+          <label>Seniority</label>
+          <div class="chips" role="group" aria-label="Seniority chips">
+            <button type="button" class="chip" data-seniority="Internship" aria-pressed="false">Internship</button>
+            <button type="button" class="chip" data-seniority="Junior" aria-pressed="false">Junior</button>
+            <button type="button" class="chip" data-seniority="Mid" aria-pressed="false">Mid</button>
+            <button type="button" class="chip" data-seniority="Senior" aria-pressed="false">Senior</button>
+            <button type="button" class="chip" data-seniority="Lead" aria-pressed="false">Lead</button>
+          </div>
+          <small class="tiny">Pick one. Click again to unselect.</small>
+        </div>
+
+        <!-- Tags -->
+        <div style="margin-top:14px">
+          <label for="tagInput">Tags / Keywords <span class="tiny">(optional)</span></label>
+          <div class="row">
+            <input id="tagInput" class="input" type="text" placeholder="Add a tag and press Enter (e.g., Red Team, MDM, VPN, NCA ECC)">
+            <button class="btn" type="button" id="addTag">Add tag</button>
+          </div>
+          <div id="tagChips" class="chips" style="margin-top:10px" aria-live="polite"></div>
+          <small class="tiny">Sample: Cloud, Security, MDM, VPN</small>
+        </div>
+
+        <div class="actions">
+          <button id="submitBtn" class="btn-primary" type="submit">Search Jobs</button>
+          <a class="btn-link" href="#" id="clearBtn">Clear</a>
+          <span class="hint" aria-live="polite">Front-end demo—opens LinkedIn; no accounts or scraping.</span>
+        </div>
+      </form>
+    </section>
+
+    <!-- How it works (tight, centered) -->
+    <section class="how" aria-label="How it works">
+      <h2>How it works</h2>
+      <ol>
+        <li>Enter a targeted role and optional location/tags.</li>
+        <li>Click “Search Jobs”.</li>
+        <li>We construct the URL and open a new tab with live results.</li>
+      </ol>
+      <p class="tiny" style="text-align:center;margin-top:8px">This is a front-end demo. We don’t store data or log into sites.</p>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer>
+    <div class="foot">
+      <div>© 2025 Creative Digital CV — Version 1.0 Beta | Made with love in SEU 💜</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared behavior -->
+  <script src="js/app.js"></script>
+
+  <!-- Page logic (core URL generation preserved; UI trimmed for focus) -->
+  <script>
+  (function(){
+    const $ = (s) => document.querySelector(s);
+    const byAll = (s) => Array.from(document.querySelectorAll(s));
+
+    const job = $('#job');
+    const loc = $('#loc');
+    const jobErr = $('#job_err');
+    const addTagBtn = $('#addTag');
+    const tagInput = $('#tagInput');
+    const tagChips = $('#tagChips');
+    const submitBtn = $('#submitBtn');
+    const form = $('#jobsForm');
+
+    // Default sample tags to hint usage
+    ['Cloud','Security','MDM','VPN'].forEach(addTag);
+
+    // Seniority chips (single-select)
+    const seniorityChips = byAll('[data-seniority]');
+    function getSelectedSeniority(){
+      const hit = seniorityChips.find(c => c.getAttribute('aria-pressed') === 'true');
+      return hit ? hit.dataset.seniority : '';
+    }
+    seniorityChips.forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        const pressed = chip.getAttribute('aria-pressed') === 'true';
+        seniorityChips.forEach(c=>c.setAttribute('aria-pressed','false'));
+        chip.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+      });
+    });
+
+    // Tag helpers
+    function normalize(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+    function addTag(name){
+      const label = normalize(name);
+      if(!label) return;
+      const exists = Array.from(tagChips.children).some(ch => ch.dataset.tag === label.toLowerCase());
+      if(exists) return;
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'chip';
+      chip.dataset.tag = label.toLowerCase();
+      chip.setAttribute('aria-pressed','true');
+      chip.title = 'Click to remove';
+      chip.textContent = label + ' ×';
+      chip.addEventListener('click', ()=> chip.remove());
+      tagChips.appendChild(chip);
+    }
+    addTagBtn.addEventListener('click', ()=>{
+      addTag(tagInput.value);
+      tagInput.value = '';
+      tagInput.focus();
+    });
+    tagInput.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        addTag(tagInput.value);
+        tagInput.value = '';
+      }
+    });
+
+    // Clear
+    $('#clearBtn').addEventListener('click', (e)=>{
+      e.preventDefault();
+      form.reset();
+      jobErr.style.display = 'none';
+      seniorityChips.forEach(c=>c.setAttribute('aria-pressed','false'));
+      tagChips.innerHTML = '';
+      ['Cloud','Security','MDM','VPN'].forEach(addTag);
+      job.focus();
+    });
+
+    // URL builders (unchanged core)
+    function buildKeywords(){
+      const parts = [];
+      const title = normalize(job.value);
+      const seniority = getSelectedSeniority();
+      if(!title) return '';
+
+      if(seniority) parts.push(seniority, title);
+      else parts.push(title);
+
+      Array.from(tagChips.children).forEach(ch=>{
+        parts.push(ch.textContent.replace(' ×',''));
+      });
+
+      return normalize(parts.join(' '));
+    }
+
+    function buildLinkedInURL(keywords, location){
+      const base = 'https://www.linkedin.com/jobs/search/';
+      const u = new URL(base);
+      u.searchParams.set('keywords', keywords);
+      if(location) u.searchParams.set('location', location);
+      return u.toString();
+    }
+
+    function buildGoogleURL(keywords, location){
+      const qParts = ['site:linkedin.com/jobs/', keywords];
+      if(location) qParts.push(location);
+      const q = normalize(qParts.filter(Boolean).join(' '));
+      const u = new URL('https://www.google.com/search');
+      u.searchParams.set('q', q);
+      return u.toString();
+    }
+
+    function setBusy(on){
+      submitBtn.disabled = on;
+      submitBtn.textContent = on ? 'Searching…' : 'Search Jobs';
+    }
+
+    // Submit: open LinkedIn (primary). Google builder retained (core preserved) but not opened.
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      jobErr.style.display = 'none';
+
+      const title = normalize(job.value);
+      if(!title){
+        job.setAttribute('aria-invalid','true');
+        jobErr.style.display = 'block';
+        job.focus();
+        return;
+      }
+      job.removeAttribute('aria-invalid');
+
+      setBusy(true);
+      try{
+        const kw = buildKeywords();
+        const location = normalize(loc.value);
+
+        // Always open LinkedIn as the primary destination
+        const li = buildLinkedInURL(kw, location);
+        window.open(li, '_blank', 'noopener,noreferrer');
+
+        // Core logic for Google URL generation remains available (not opened by default)
+        /* const gg = buildGoogleURL(kw, location); */
+
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    // Mobile nav toggle parity (if app.js didn’t already attach)
+    (function ensureHamburger(){
+      const btn = document.getElementById('hamburger');
+      const nav = document.getElementById('mainnav');
+      if(btn && nav && !btn._bound){
+        btn._bound = true;
+        btn.addEventListener('click', ()=>{
+          const open = nav.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      }
+    })();
+
+    // Gentle, helpful defaults to make the page feel ready-to-use
+    job.value = 'AI Infrastructure Engineer';
+    loc.value = 'Riyadh';
+    const mid = byAll('[data-seniority]').find(c=>c.dataset.seniority==='Mid');
+    if(mid) mid.setAttribute('aria-pressed','true');
+    ['Security','MDM','VPN','Cloud'].forEach(addTag);
+  })();
+  </script>
+</body>
+</html>
